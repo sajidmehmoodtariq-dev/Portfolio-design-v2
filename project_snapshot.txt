@@ -1,0 +1,4463 @@
+--- Project Snapshot ---
+--- Generated on: Sat, 10 Oct 2026 18:23:25 GMT ---
+
+
+
+=============== 📌 CRITICAL CONFIG FILES ===============
+
+
+--- FILE: package.json ---
+
+{
+  "name": "portfolio",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint"
+  },
+  "dependencies": {
+    "@fontsource-variable/hubot-sans": "^5.3.0",
+    "@fontsource-variable/mona-sans": "^5.3.0",
+    "@fontsource/monaspace-neon": "^5.3.0",
+    "@gsap/react": "^2.1.2",
+    "gsap": "^3.15.0",
+    "lucide-react": "^1.53.0",
+    "next": "16.4.0",
+    "next-themes": "^0.4.6",
+    "react": "19.3.0",
+    "react-dom": "19.3.0",
+    "react-icons": "^5.7.0"
+  },
+  "devDependencies": {
+    "@tailwindcss/turbopack": "^4",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "eslint": "^9",
+    "eslint-config-next": "16.4.0",
+    "playwright-core": "^1.64.0",
+    "tailwindcss": "^4",
+    "typescript": "^5"
+  }
+}
+
+
+--- END OF FILE: package.json ---
+
+
+--- FILE: tsconfig.json ---
+
+{
+  "compilerOptions": {
+    "target": "ES2017",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "react-jsx",
+    "incremental": true,
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
+    "paths": {
+      "@/*": ["./src/*"]
+    }
+  },
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    ".next/dev/types/**/*.ts",
+    "**/*.mts"
+  ],
+  "exclude": ["node_modules"]
+}
+
+
+--- END OF FILE: tsconfig.json ---
+
+
+
+=============== 🌳 DIRECTORY STRUCTURE ===============
+
+├── .claude
+│   └── launch.json
+├── BUILD-PROMPT.md
+├── design
+│   ├── Scroll-frame-1-Load.jpg
+│   ├── Scroll-frame-2-About.jpg
+│   ├── Scroll-frame-3-Work.jpg
+│   ├── Scroll-frame-4-Experience.jpg
+│   ├── Scroll-frame-5-Tools.jpg
+│   ├── Scroll-frame-6-Contact.jpg
+│   └── Scroll-journey-storyboard.jpg
+├── design-reference.jpg
+├── eslint.config.mjs
+├── next-env.d.ts
+├── next.config.ts
+├── package.json
+├── PORTFOLIO-BUILD-PROMPT.md
+├── public
+│   ├── cv.pdf
+│   └── projects
+│       ├── ledgerline-desktop.png
+│       ├── ledgerline-mobile.png
+│       ├── pulsecheck-desktop.png
+│       ├── pulsecheck-mobile.png
+│       ├── routewise-desktop.png
+│       └── routewise-mobile.png
+├── scripts
+│   ├── make-cv.mjs
+│   └── make-placeholders.mjs
+├── snapshot.mjs
+├── src
+│   ├── app
+│   │   ├── globals.css
+│   │   ├── icon.svg
+│   │   ├── layout.tsx
+│   │   ├── not-found.tsx
+│   │   ├── opengraph-image.tsx
+│   │   ├── page.tsx
+│   │   └── work
+│   │       ├── page.tsx
+│   │       └── [slug]
+│   │           └── page.tsx
+│   ├── components
+│   │   ├── RevealObserver.tsx
+│   │   ├── SiteHeader.tsx
+│   │   ├── tour
+│   │   │   ├── CameraRig.tsx
+│   │   │   ├── Chapters.tsx
+│   │   │   ├── DiagramArt.tsx
+│   │   │   ├── geometry.ts
+│   │   │   ├── iso.tsx
+│   │   │   ├── Packets.tsx
+│   │   │   ├── ProgressRail.tsx
+│   │   │   └── Tour.tsx
+│   │   └── ui
+│   │       ├── BrowserFrame.tsx
+│   │       ├── Button.tsx
+│   │       ├── Dot.tsx
+│   │       ├── PhoneFrame.tsx
+│   │       ├── ProjectCard.tsx
+│   │       ├── ProjectShowcase.tsx
+│   │       └── ThemeToggle.tsx
+│   ├── content
+│   │   └── site.ts
+│   └── lib
+│       ├── techIcons.ts
+│       └── tour.ts
+├── tsconfig.json
+└── tsconfig.tsbuildinfo
+
+
+
+=============== 📄 SOURCE CODE & FILES ===============
+
+
+--- FILE: .claude/launch.json ---
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "portfolio",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "dev"],
+      "port": 3000
+    },
+    {
+      "name": "portfolio-prod",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["start"],
+      "port": 3000
+    }
+  ]
+}
+
+
+--- END OF FILE: .claude/launch.json ---
+
+
+--- FILE: BUILD-PROMPT.md ---
+# BUILD PROMPT — Ahmad's portfolio · "System Tour" · Ember
+
+You are building my complete portfolio website from scratch in this folder. The approved design is in the **`design/`** folder:
+
+- `Scroll-journey-storyboard.jpg`: the whole scroll journey at a glance
+- `Scroll-frame-1-Load.jpg` … `Scroll-frame-6-Contact.jpg`: each moment in full size
+
+**Open every image before writing code. The finished site must look like these frames.** If the images and this text disagree, the images win for looks and this text wins for behavior. Ignore the orange caption bar at the top of each image and the "scroll position" text; they are only labels.
+
+I'm a beginner. Keep the code simple, readable and well organized, with short comments. Don't add features that aren't described here.
+
+---
+
+## 0. How to work
+
+1. Read this whole file and look at all images first.
+2. Build in the order of **Part 11**, without stopping to ask me between steps. Install packages and run commands yourself.
+3. After each step, run the site and take Playwright screenshots (1440×900 and 390×844). For the tour, scroll to each chapter and screenshot it. Compare with the matching frame in `design/` and fix differences before moving on.
+4. **Smoothness is the top priority.** The last version lagged. Follow the performance rules in Part 7 exactly, and test them (Part 7.3).
+5. If something can't be done exactly (for example, an icon name doesn't exist), choose the simplest close alternative, keep going, and list it in your final report.
+6. Finish with a short report: what was built, how to run it, where to edit my content, what to replace, and the smoothness test result.
+
+---
+
+## 1. The idea in one paragraph
+
+The website is a **guided tour through a system diagram**. My isometric "system" (six modules: Contact, About, Work, Now, Experience, Skills) stays **fixed on screen** while you scroll. Scrolling moves a camera over it: it **zooms into one module at a time** (the module grows big), and that chapter's content appears next to it. Then it zooms out and into the next one. At the end it zooms all the way out for Contact. This growing and shrinking of the diagram while scrolling is the signature effect, and it must feel smooth.
+
+---
+
+## 2. Tech stack (keep it light)
+
+- **Next.js** (App Router, latest stable) + **TypeScript** + **Tailwind CSS**
+- **GSAP + ScrollTrigger** for the tour: **one** pinned, scrubbed timeline. GSAP is free, including ScrollTrigger.
+- **next-themes** for dark/light mode (dark is the default)
+- **react-icons** for real tech logos (Simple Icons `si`; Devicon `di` as a fallback)
+- **lucide-react** for small UI icons
+- Fonts from npm: `@fontsource-variable/hubot-sans` (big headings), `@fontsource-variable/mona-sans` (text), `@fontsource/monaspace-neon` (small labels)
+- **Do NOT use:** Three.js / WebGL, Lenis or any smooth-scroll library, Framer Motion scroll hooks, or particle libraries. These caused the lag last time. Native browser scrolling + one GSAP timeline only.
+
+---
+
+## 3. Content: one file
+
+All text and data live in **`src/content/site.ts`**. Components read from it, so I can change content without touching code. Mark placeholder companies, projects and numbers with `// TODO: replace with real`.
+
+```ts
+export const site = {
+  name: "Ahmad",
+  wordmark: "AHMAD",
+  role: "Software Engineer",
+  location: "Karachi, Pakistan",
+  email: "hello@ahmad.dev",
+  github: "https://github.com/ahmad-dev",
+  linkedin: "https://linkedin.com/in/ahmad-dev",
+  cv: "/cv.pdf",
+
+  hero: {
+    eyebrow: "SOFTWARE ENGINEER · 3 YEARS SHIPPING",
+    lines: ["I BUILD", "SYSTEMS", "THAT"], accent: "STAY UP",
+    text: "Full-stack engineer building payment, logistics and developer tools. Scroll — the system will walk you through my work.",
+  },
+
+  about: {
+    title: "Hi, I'm Ahmad",
+    text: "Software engineer in Karachi. For three years I've built the parts of products people only notice when they break — payments, pipelines and live dashboards.",
+    facts: [["Now", "Engineer @ Paylane"], ["Before", "Northwind Logistics"], ["Focus", "Backend & full-stack"], ["Based", "Karachi · remote ok"]],
+  },
+
+  projects: [
+    { slug: "ledgerline", name: "Ledgerline", kind: "Payments · Paylane · 2025", url: "ledgerline.paylane.app", live: "#",
+      stats: [["6h → 18m", "daily close"], ["2.1M", "txns / day"]],
+      story: "Finance matched bank settlements by hand every morning. I built the service that does it automatically.",
+      stack: ["Go", "Kafka", "PostgreSQL", "AWS"],
+      desktop: "/projects/ledgerline-desktop.png", mobile: "/projects/ledgerline-mobile.png",
+      caseStudy: { problem: "", approach: "", outcome: "" } },
+    { slug: "routewise", name: "Routewise", kind: "Logistics · Northwind · 2024", url: "dispatch.northwind.io", live: "#",
+      stats: [["1,200", "drivers live"], ["9 → 3 min", "per dispatch"]],
+      story: "A live dispatch board and driver app that replaced spreadsheets and phone calls.",
+      stack: ["Next.js", "WebSockets", "PostGIS"],
+      desktop: "/projects/routewise-desktop.png", mobile: "/projects/routewise-mobile.png",
+      caseStudy: { problem: "", approach: "", outcome: "" } },
+    { slug: "pulsecheck", name: "Pulsecheck", kind: "Open source · 2024 — now", url: "github.com/ahmad-dev/pulsecheck", live: "#",
+      stats: [["1.4k", "GitHub stars"], ["22", "contributors"]],
+      story: "A small self-hosted uptime monitor and status page I maintain in my free time.",
+      stack: ["TypeScript", "Hono", "SQLite"],
+      desktop: "/projects/pulsecheck-desktop.png", mobile: "/projects/pulsecheck-mobile.png",
+      caseStudy: { problem: "", approach: "", outcome: "" } },
+  ],
+
+  experience: [
+    { years: "2025—NOW", role: "Software Engineer", place: "Paylane · Remote", current: true },
+    { years: "2023—24", role: "Associate Engineer", place: "Northwind Logistics" },
+    { years: "2023", role: "Intern", place: "Cloudlane Labs" },
+  ],
+
+  tools: ["Python", "TypeScript", "JavaScript", "Node.js", "Go", "React", "Next.js", "HTML", "CSS", "PostgreSQL", "Redis", "Docker", "AWS", "Git"],
+
+  contact: { lines: ["LET'S BUILD", "SOMETHING"], accent: "THAT STAYS UP", text: "Open to full-time roles and freelance work. I reply within a day." },
+};
+```
+
+Write short, realistic text for the three case studies (problem / approach / outcome, 2–3 sentences each).
+
+**Project images:** I don't have real screenshots yet. Create good-looking placeholder images in `public/projects/` in the site's colors: a reconciliation dashboard for Ledgerline (like frame 3), a map with routes for Routewise, and a status page with uptime bars for Pulsecheck. Desktop 1600×1000 and mobile 780×1690, same file names as above, so I can replace them later.
+
+---
+
+## 4. Design system
+
+### 4.1 Colors: "Ember"
+CSS variables in `globals.css`, mapped into Tailwind. Never hard-code colors in components.
+
+| Token | Dark (default) | Light | Use |
+|---|---|---|---|
+| `--bg` | `#0B0A0F` | `#F7F4EF` | page (deep ink) |
+| `--surface` | `#15131B` | `#FFFFFF` | cards, panels |
+| `--line` | `#2A2531` | `#E4DDD3` | 1px borders |
+| `--text` | `#F6F1EA` | `#17131A` | main text (warm white) |
+| `--muted` | `#9C94A3` | `#6B6470` | secondary text |
+| `--accent` | `#FF6B35` | `#E8541F` | **Ember orange**: "STAY UP", dots, eyebrows, buttons, glowing parts |
+| `--accent-soft` | `#FF8F5E` | `#FF7A45` | top of button gradient |
+| `--accent-side-1` | `#E0521F` | `#D04A18` | shaded side of orange 3D parts |
+| `--accent-side-2` | `#B23E14` | `#A93A11` | darker side of orange 3D parts |
+| `--on-accent` | `#140A05` | `#FFFFFF` | text on the orange button |
+
+Background of the stage: `--bg` with a soft radial glow of `--surface` in the middle. Orange is the only color. Use it for glow, highlights and actions, never for large text blocks. No gradients on text, no glass effects, no emojis. Check WCAG AA contrast for all text.
+
+### 4.2 Typography
+| Style | Font | Size | Weight | Notes |
+|---|---|---|---|---|
+| Hero / contact title | Hubot Sans | `clamp(3rem, 5.7vw, 5.2rem)` | 800, `font-stretch:112%` | UPPERCASE, line-height 0.92, letter-spacing -0.035em |
+| Chapter title | Hubot Sans | `clamp(2.4rem, 4.4vw, 4rem)` | 800, `font-stretch:112%` | UPPERCASE, line-height 0.95 |
+| Eyebrow / chapter number | Monaspace Neon | 12.5px | 500 | UPPERCASE, +0.12em, orange, e.g. `01 / ABOUT` |
+| Body | Mona Sans | 18px | 400 | line-height 1.6, `--muted`, max 470px |
+| Small labels | Monaspace Neon | 11–12px | 400 | UPPERCASE, +0.06em |
+
+- **Round dot:** every big title ends with a small **orange circle** instead of a period (`0.17em`, `border-radius:50%`, on the baseline). Make a `<Dot />` component. The wordmark **AHMAD●** uses it too.
+- `text-wrap: balance` on titles.
+
+### 4.3 Buttons
+- **Primary:** pill, 50px tall, gradient `--accent-soft → --accent`, text `--on-accent`, soft orange glow underneath.
+- **Secondary:** pill, 1px `--line` border, semi-transparent `--bg`.
+- One `<Button>` component. **I'll send exact hover effects later.** For now: the arrow moves 3px on hover, 150ms.
+- Visible focus ring: 2px orange, 3px offset.
+
+### 4.4 Fixed UI (always visible during the tour)
+- Top-left: **AHMAD●** wordmark (Hubot 800, 22px), links home.
+- Top-right: secondary pill **"Let's talk →"** (jumps to Contact) and a small round **theme toggle** (sun/moon).
+- Right edge, vertically centered: a **progress rail** of 6 small dots (one per chapter). The active chapter's dot becomes a short orange pill. Clicking a dot jumps to that chapter.
+
+---
+
+## 5. The system diagram (one SVG, drawn once)
+
+Build `components/tour/SystemDiagram.tsx`: an **isometric SVG** made in code, matching `Scroll-frame-1-Load.jpg`. It's drawn **once** and never re-rendered while scrolling.
+
+**Look:** six rounded "soft modules" in graphite on a faint dot grid. Each sits on a slightly bigger, darker base with a soft blurred shadow. Each has one simple line icon laid flat on its top, and orange parts that glow.
+
+| Module | Shape | Orange part | Icon on top | Label | Sub-label |
+|---|---|---|---|---|---|
+| Contact | rounded cube | — | envelope (white) | CONTACT | Say hello |
+| About | round puck | ring on top | person | ABOUT | Who I am |
+| Work | 2×2 rounded cubes on one base | front-top cube's top | grid | WORK | Selected projects |
+| Now | long rounded capsule on 2 feet + round end cap | dots inside the capsule | clock | NOW | What I'm building |
+| Experience | 3 stacked cylinders | glowing seams between them | briefcase | EXPERIENCE | Where I've worked |
+| Skills | 3 stacked hexagon plates | top plate | code `< >` | SKILLS | Tools I use |
+
+- Graphite colors: tops `#2D313A`, sides `#25282F` / `#1B1D22`, bases `#1F2229` / `#181A1F` / `#121418`. Orange parts use `--accent`, `--accent-side-1` and `--accent-side-2`.
+- Thin graphite **cables** connect the modules. Small **packets** (orange and white dots with a soft glow) travel along the cables in a loop. Use CSS `offset-path` animation; the glow is a pre-made blurred circle, not an animated filter.
+- **Labels:** name in Hubot 700 12px uppercase with a small orange dot before it, sub-label in Mona 12px muted, a 1px leader line to the module. Labels are visible **only in the overview** (load and contact). They fade out when the camera zooms in.
+- No technical numbers anywhere (no RPS, latency or uptime).
+- Give each module an `id` and a known "center point" so the camera can zoom to it (Part 6).
+
+**Overview interactions (only when fully zoomed out):**
+- **Hover a module:** it lifts 6px, its orange part glows brighter, the others dim to 60%, and a small card appears (`--surface`, 1px `--line`, 14px radius) with the name, one plain sentence and "Click to open →". Sentences: Contact "Email me. I reply within a day." · About "A bit about me and how I work." · Work "3 selected projects." · Now "What I'm building and learning." · Experience "3 roles since 2023." · Skills "The tools I use every week."
+- **Click a module:** scroll to its chapter (Now → About).
+- **Mouse move:** the diagram shifts gently, max 8px.
+
+---
+
+## 6. The scroll tour (the signature effect)
+
+### 6.1 Structure
+- The home page is one section `#tour` with a full-screen **stage** (`100svh`). It is **pinned** by ScrollTrigger while you scroll through roughly **800vh**.
+- Inside the stage: the SVG diagram in a wrapper `div.camera`, plus one **content layer per chapter** (absolutely positioned HTML).
+- **One GSAP timeline** with `scrollTrigger: { trigger: "#tour", pin: true, scrub: 0.6, start: "top top", end: "+=800%" }`. Add **labels** for each chapter so the rail and buttons can jump to them (`scrollTo` the label position).
+
+### 6.2 The camera
+The camera zooms by animating **only** `transform: translate(x, y) scale(s)` on `div.camera` (`transform-origin: 0 0`). For each chapter, compute `x` and `y` so the target module's center lands at the screen position below. Use percentages of the viewport, so it works at any size.
+
+| Chapter | Target | Scale | Module center lands at | Content | Match image |
+|---|---|---|---|---|---|
+| 1 Load / Hero | whole diagram | 1.0 | diagram centered at 72% x, 50% y | hero text on the left | frame 1 |
+| 2 About | About module | 3.4 | 30% x, 58% y | About content on the right | frame 2 |
+| 3 Work | Work module | 2.2 | 25% x, 67% y | "SELECTED WORK●" top-left + project card on the right | frame 3 |
+| 4 Experience | Experience module | 3.0 | 30% x, 58% y | experience list on the right | frame 4 |
+| 5 Tools | Skills module | 3.1 | 50% x, 40% y | title on top, logo strip at the bottom | frame 5 |
+| 6 Contact | whole diagram | 0.8 | diagram centered at 76% x, 52% y | contact content on the left | frame 6 |
+
+**Timing:** each chapter gets a **hold** (content fully visible, camera still) and a **move** to the next one. About 40% of each chapter's scroll is the move and 60% is the hold, so content stays readable. Ease the moves with `power2.inOut`.
+
+**During each move:**
+- The old content fades out and moves up 24px; the new content fades in from 24px below (titles first, then text, then cards, with a 0.06 stagger).
+- A soft gradient "veil" (`--bg` → transparent) fades in on the content side, so text stays readable over the big module (see frames 2–5).
+- Labels fade out when leaving the overview and fade back in for Contact.
+
+### 6.3 Chapter content (match the frames)
+- **1 Hero (left, max 640px):** eyebrow · title `I BUILD / SYSTEMS / THAT / STAY UP●` (last line orange) · body text · buttons **Start the tour ↓** (primary, scrolls to chapter 2) and **Send a request** (secondary, jumps to Contact).
+- **2 About (right, max 560px):** `01 / ABOUT` · title "HI, I'M AHMAD●" · text · a 2×2 grid of small fact boxes (`--surface` at 90%, 1px `--line`, 14px radius; tiny uppercase label + value).
+- **3 Work:** `02 / WORK` + "SELECTED WORK●" at the top-left. On the right, a **project card** (760px wide, `--surface`, 1px `--line`, 22px radius, big soft shadow):
+  - Top row: number in orange Monaspace, name (26px, 600), kind (muted), and "Case study →" in orange (links to `/work/[slug]`).
+  - Body: the desktop image inside a simple browser frame, with the **phone image overlapping the bottom-right corner**.
+  - Bottom row: the 2 stats (big number + small label).
+  - **Inside chapter 3, scrolling steps through all 3 projects:** this chapter is longer (about 3 holds). Each next project card **slides in from the right and the previous one slides out to the left**, with a small "● ○ ○" indicator under the card. The camera stays on the Work module, but zooms in a little more for each project (2.2 → 2.35 → 2.5).
+- **4 Experience (right, max 560px):** `03 / EXPERIENCE` · "WHERE I'VE BEEN●" · rows separated by 1px lines: years (Monaspace, muted) | role (19px, 600) with the place below (muted) | an orange pulsing dot on the current job.
+- **5 Tools:** `04 / TOOLS` + "TOOLS I USE EVERY WEEK●" centered at the top. At the bottom, a **logo strip**: real official logos (react-icons Simple Icons, e.g. `SiPython`, `SiTypescript`, `SiJavascript`, `SiNodedotjs`, `SiGo`, `SiReact`, `SiNextdotjs`, `SiHtml5`, `SiCss`, `SiPostgresql`, `SiRedis`, `SiDocker`, `SiGit`; AWS via `DiAws` if needed; check the names in the installed version). Each logo sits in a 68px tile (`--surface`, 1px `--line`, 18px radius) with the name below. Logos are light grey and turn their brand color on hover. The strip glides slowly left to right in an endless CSS loop (~40s), fades at both edges, and pauses on hover. Map names to icons in `lib/techIcons.ts`.
+- **6 Contact (left, max 640px):** `05 / CONTACT` · title `LET'S BUILD / SOMETHING / THAT STAYS UP●` (last line orange) · text · buttons: **hello@ahmad.dev →** (primary, `mailto:`; a small "Copy" icon button next to it copies the email and shows "Copied ✓"), **LinkedIn ↗**, **CV ↓** (secondary). A tiny footer line at the bottom of the stage: `© 2026 Ahmad · Designed and built by me`.
+
+---
+
+## 7. Smoothness rules (MUST follow)
+
+### 7.1 Do
+- **One** ScrollTrigger timeline for the whole tour. No other scroll listeners.
+- Animate **only `transform` and `opacity`**. Put `will-change: transform` on `.camera` and the content layers.
+- Draw the SVG once. During scroll, never change SVG attributes, re-render React state, or recalculate layout.
+- Packets: CSS animations. **Pause them while the camera is moving** (toggle a class at the move's start and end) and when the tab is hidden.
+- Pre-blurred glows (static blurred shapes). Never animate `filter`, `box-shadow` or `backdrop-filter` while scrolling.
+- `scrub: 0.6` for a little smoothing. Use `ScrollTrigger.config({ ignoreMobileResize: true })`.
+- Use `gsap.matchMedia()` so the tour only runs on screens ≥ 900px wide without reduced motion (see 7.2).
+- Clean up on unmount (`useGSAP` from `@gsap/react` or `ctx.revert()`).
+
+### 7.2 Mobile and reduced motion
+On screens under 900px wide, or when `prefers-reduced-motion` is on, **don't pin or zoom**. Show the chapters as normal stacked sections:
+- The hero with the full diagram below the text (static, small).
+- Each chapter as a section: a **cropped static view** of its module (the same SVG, scaled with CSS) on top, then the content.
+- Work: the 3 project cards stacked.
+- Simple fade-up reveals only (IntersectionObserver + CSS transition).
+
+### 7.3 Test it
+- Run `npm run build && npm start` (production mode, not dev).
+- Use Playwright with Chrome to scroll slowly through the whole tour while recording a performance trace. Report the **average FPS and any long frames over 50ms**. Target: **55–60 fps** on a normal laptop.
+- If it's under target, simplify the diagram (fewer packets, smaller shadows) until it passes, and tell me what you changed.
+
+---
+
+## 8. Other pages
+- **`/work`:** title "SELECTED WORK●" and the 3 project cards in a simple vertical list (no tour).
+- **`/work/[slug]`:** wordmark + "← Back" at the top, the project number + name as a big title with the dot, the kind line, links (**Visit site ↗**, **GitHub ↗** if any), a facts row (Role · Timeline · Stack), the big browser frame with the phone overlapping, then **Problem**, **Approach** and **Outcome** (max 62ch text), and "Next project →" at the bottom.
+- **404:** centered "PAGE NOT FOUND●" and a "Back home →" button.
+
+## 9. Light mode
+The theme toggle switches to the light tokens (Part 4.1). In light mode the diagram modules become warm white (`#FFFFFF` tops, `#EEEAE2` / `#DFDAD0` sides, `#E9E4DB` bases) with the same orange parts, and the dot grid and cables use `--line`. Everything else just follows the tokens. Dark is the default.
+
+## 10. Quality
+- Semantic HTML, one `h1` (the hero title), a skip link, keyboard navigation (diagram modules are focusable buttons with names; progress-rail dots are buttons). During the tour, all chapter text must be real HTML, readable by screen readers.
+- SEO: titles, descriptions, an Open Graph image (ink background, "AHMAD●", "Software Engineer"), favicon (ink square with an orange dot).
+- `next/image` for screenshots. Fonts load without layout shift.
+- `npm run build` passes with no errors or warnings, and no console errors.
+
+## 11. Build order (do all of it, checking each step)
+1. Setup, fonts, colors (dark + light), `site.ts`, `Button`, `Dot`, fixed UI (wordmark, Let's talk, theme toggle).
+2. The SVG system diagram (static), matching frame 1. Then labels, packets and hover/click in the overview.
+3. The tour: pinned stage, camera timeline with all 6 chapters and holds, progress rail, chapter labels/jumps.
+4. Chapter content for all chapters, including the 3-project stepper in Work and the logo strip.
+5. Mobile / reduced-motion stacked layout.
+6. `/work`, `/work/[slug]`, 404, placeholder images, case-study text.
+7. Light mode check, accessibility, SEO.
+8. Performance test (Part 7.3) in production mode, and fix until smooth.
+9. Final comparison: screenshot each chapter at 1440×900 next to the matching `design/` frame, fix differences, then write the final report.
+
+
+--- END OF FILE: BUILD-PROMPT.md ---
+
+
+--- FILE: eslint.config.mjs ---
+import { defineConfig, globalIgnores } from "eslint/config";
+import nextVitals from "eslint-config-next/core-web-vitals";
+import nextTs from "eslint-config-next/typescript";
+
+const eslintConfig = defineConfig([
+  ...nextVitals,
+  ...nextTs,
+  // Override default ignores of eslint-config-next.
+  globalIgnores([
+    // Default ignores of eslint-config-next:
+    ".next/**",
+    "out/**",
+    "build/**",
+    "next-env.d.ts",
+  ]),
+]);
+
+export default eslintConfig;
+
+
+--- END OF FILE: eslint.config.mjs ---
+
+
+--- FILE: next-env.d.ts ---
+/// <reference types="next" />
+/// <reference types="next/image-types/global" />
+import "./.next/dev/types/routes.d.ts";
+import "./.next/dev/types/root-params.d.ts";
+
+// NOTE: This file should not be edited
+// see https://nextjs.org/docs/app/api-reference/config/typescript for more information.
+
+
+--- END OF FILE: next-env.d.ts ---
+
+
+--- FILE: next.config.ts ---
+import type { NextConfig } from "next";
+
+const nextConfig: NextConfig = {
+  turbopack: {
+    rules: {
+      "*.css": {
+        loaders: ["@tailwindcss/turbopack"],
+        as: "*.css",
+      },
+    },
+  },
+};
+
+export default nextConfig;
+
+
+--- END OF FILE: next.config.ts ---
+
+
+--- FILE: package.json ---
+{
+  "name": "portfolio",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint"
+  },
+  "dependencies": {
+    "@fontsource-variable/hubot-sans": "^5.3.0",
+    "@fontsource-variable/mona-sans": "^5.3.0",
+    "@fontsource/monaspace-neon": "^5.3.0",
+    "@gsap/react": "^2.1.2",
+    "gsap": "^3.15.0",
+    "lucide-react": "^1.53.0",
+    "next": "16.4.0",
+    "next-themes": "^0.4.6",
+    "react": "19.3.0",
+    "react-dom": "19.3.0",
+    "react-icons": "^5.7.0"
+  },
+  "devDependencies": {
+    "@tailwindcss/turbopack": "^4",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "eslint": "^9",
+    "eslint-config-next": "16.4.0",
+    "playwright-core": "^1.64.0",
+    "tailwindcss": "^4",
+    "typescript": "^5"
+  }
+}
+
+
+--- END OF FILE: package.json ---
+
+
+--- FILE: PORTFOLIO-BUILD-PROMPT.md ---
+# PORTFOLIO BUILD PROMPT — Ahmad · "Cobalt Night"
+
+You are building my complete personal portfolio website in this folder, in one go. The approved visual design is the image **`design-reference.jpg`** in this folder. Open it first and keep it next to this spec: **the finished site must look like that image.** Where this text and the image disagree, the image wins for looks and this text wins for behavior.
+
+I am a beginner. Keep the code simple, readable and well organized. Prefer plain CSS features over complex libraries. Do not add anything that is not described here.
+
+---
+
+## 0. How to work
+
+1. Read this whole file and look at `design-reference.jpg` before writing any code.
+2. Build everything in the order of **Part 12**, without stopping to ask me between steps. After each step, run the site, take Playwright screenshots (1440px and 390px wide), compare them with `design-reference.jpg`, and fix differences before moving on.
+3. Install packages and run commands yourself. Explain anything I must do by hand in plain language.
+4. If something really can't be done as described (for example, a package doesn't exist), choose the simplest close alternative, keep going, and list it in your final report.
+5. At the end, give me a short report: what was built, how to run it, where to change my content, and anything I need to replace.
+
+---
+
+## 1. Tech stack (keep it simple)
+
+- **Next.js** (App Router, latest stable) + **TypeScript** + **Tailwind CSS**
+- **Motion** (`motion/react`) for animations
+- **Lenis** for smooth scrolling (turned off when the user prefers reduced motion)
+- **next-themes** for dark/light mode (dark is the default)
+- **react-icons** for tech logos (Simple Icons set `si`, Devicon set `di` as a fallback)
+- **lucide-react** for small UI icons (arrows, copy, sun/moon, mail, etc.)
+- Fonts via npm (no manual downloads):
+  - `@fontsource-variable/hubot-sans` (display / hero)
+  - `@fontsource-variable/mona-sans` (headings + body)
+  - `@fontsource/monaspace-neon` (small labels, dates, code)
+  - `@fontsource-variable/newsreader` (the *italic serif* accent words)
+- **No** Three.js, no UI kits (no shadcn look, no Material), no particle effects. The hero diagram is a hand-built **SVG** (Part 5).
+
+---
+
+## 2. Content lives in one file
+
+Create `src/content/site.ts`. **All text, links and data come from this file**, so I can edit my portfolio without touching components. Use this content (it is realistic placeholder data; add a `// TODO: replace with real` comment next to companies, projects and numbers):
+
+```ts
+export const site = {
+  name: "Ahmad",
+  wordmark: "AHMAD",
+  role: "Software Engineer",
+  yearsExperience: 3,
+  location: "Karachi, Pakistan",
+  timezone: "Asia/Karachi",
+  email: "hello@ahmad.dev",
+  github: "https://github.com/ahmad-dev",
+  linkedin: "https://linkedin.com/in/ahmad-dev",
+  cv: "/cv.pdf",
+
+  hero: {
+    eyebrow: "SOFTWARE ENGINEER · 3 YEARS SHIPPING",
+    titleLines: ["I BUILD", "SYSTEMS THAT"],
+    titleAccent: "STAY UP",
+    text: "Full-stack engineer building payment, logistics and developer tools. Mostly TypeScript and Go, on PostgreSQL and AWS.",
+  },
+
+  about: {
+    lead: "I'm a software engineer in Karachi. For the past three years I've worked on the parts of products people only notice when they break — payments, data pipelines and real-time dashboards.",
+    leadMuted: "My job is to make sure they don't.",
+    highlight: "when they break",           // shown in italic serif + accent color
+    more: "Outside of work you'll find me playing weekend cricket, maintaining a small open-source uptime monitor, or slowly getting better at film photography.",
+    facts: [
+      ["Currently", "Software Engineer, Paylane"],
+      ["Previously", "Northwind Logistics"],
+      ["Focus", "Backend & full-stack"],
+      ["Stack", "TypeScript, Go, Postgres"],
+      ["Based in", "Karachi · open to remote"],
+    ],
+  },
+
+  services: [
+    { title: "Backend & APIs", text: "APIs and services that handle real traffic, written in Go and Node.js." },
+    { title: "Full-stack features", text: "From the database table to the button your users click, in React and Next.js." },
+    { title: "Payments & integrations", text: "Payouts, webhooks and third-party APIs — code that can't lose a transaction." },
+    { title: "Keeping things running", text: "Monitoring, alerts and clear runbooks, so launches stay boring." },
+  ],
+
+  projects: [
+    {
+      slug: "ledgerline", name: "Ledgerline", kind: "Payments reconciliation · Paylane · 2025",
+      url: "ledgerline.paylane.app", live: "#",
+      story: "Finance used to match bank settlements by hand every morning. I built the service that does it automatically — the daily close went from **6 hours to 18 minutes**.",
+      stack: ["Go", "Kafka", "PostgreSQL", "AWS"],
+      desktop: "/projects/ledgerline-desktop.png", mobile: "/projects/ledgerline-mobile.png",
+      caseStudy: { problem: "…", approach: "…", outcome: "…" },
+    },
+    {
+      slug: "routewise", name: "Routewise", kind: "Dispatch & tracking · Northwind · 2024",
+      url: "dispatch.northwind.io", live: "#",
+      story: "A live dispatch board and driver app for **1,200 drivers**. Dispatch time per order dropped from nine minutes to three.",
+      stack: ["Next.js", "WebSockets", "PostGIS"],
+      desktop: "/projects/routewise-desktop.png", mobile: "/projects/routewise-mobile.png",
+      caseStudy: { problem: "…", approach: "…", outcome: "…" },
+    },
+    {
+      slug: "pulsecheck", name: "Pulsecheck", kind: "Open source · 2024 — now",
+      url: "github.com/ahmad-dev/pulsecheck", live: "#",
+      story: "A small self-hosted uptime monitor I maintain in my free time. **1.4k stars** on GitHub and 22 contributors so far.",
+      stack: ["TypeScript", "Hono", "SQLite"],
+      desktop: "/projects/pulsecheck-desktop.png", mobile: "/projects/pulsecheck-mobile.png",
+      caseStudy: { problem: "…", approach: "…", outcome: "…" },
+    },
+  ],
+
+  experience: [
+    { years: "2025 — Now", role: "Software Engineer", company: "Paylane", place: "Remote", text: "Building payment reconciliation and payout services.", current: true },
+    { years: "2023 — 2024", role: "Associate Software Engineer", company: "Northwind Logistics", place: "Karachi", text: "Built the live dispatch platform used by 1,200 drivers." },
+    { years: "2023", role: "Software Engineering Intern", company: "Cloudlane Labs", place: "Karachi", text: "Internal tools and invoice automation." },
+    { years: "2019 — 2023", role: "BS Computer Science", company: "University", place: "Karachi", text: "Where I wrote my first real program." },
+  ],
+
+  stack: ["TypeScript", "JavaScript", "Node.js", "Python", "Go", "React", "Next.js", "HTML", "CSS", "PostgreSQL", "Redis", "Docker", "AWS", "Git"],
+};
+```
+
+Write short, realistic placeholder text for the three case studies (problem / approach / outcome, 2–3 sentences each).
+
+**Project images:** I don't have screenshots yet. Create clean placeholder images in `public/projects/` that look like the mockups in `design-reference.jpg` (a dashboard for Ledgerline, a map for Routewise, a status page for Pulsecheck; desktop 1600×1000, mobile 780×1690), built as simple SVG/HTML-rendered images in the site's colors. Use `next/image` so I can later replace them with real screenshots of the same name.
+
+---
+
+## 3. Design system
+
+### 3.1 Colors: "Cobalt Night" (dark is default)
+
+Define these as CSS variables in `globals.css` and map them into Tailwind. **Never hard-code colors in components.**
+
+| Token | Dark (default) | Light | Use |
+|---|---|---|---|
+| `--bg` | `#0A0D16` | `#F6F7FB` | page background (navy-tinted near-black) |
+| `--surface` | `#111624` | `#FFFFFF` | cards, panels |
+| `--surface-2` | `#18203A` | `#EDF0F7` | logo tiles, inner areas |
+| `--line` | `#212A40` | `#DCE1EC` | 1px borders and dividers |
+| `--text` | `#EEF1F8` | `#0E1320` | main text |
+| `--muted` | `#8A93AB` | `#59627A` | secondary text |
+| `--accent` | `#7C9CFF` | `#3E5FD9` | periwinkle blue: dots, highlights, links, "STAY UP" |
+| `--accent-soft` | `#9BB4FF` | `#5E80F5` | top of the button gradient |
+| `--accent-strong` | `#5E80F5` | `#3450C4` | bottom of the button gradient |
+| `--on-accent` | `#0A0D16` | `#FFFFFF` | text on the primary button |
+
+**The one light section ("How I can help")** always uses these, in both themes:
+`--paper #EEF1F7`, `--paper-text #0E1320`, `--paper-muted #59627A`, `--paper-line #D5DBE8`, `--paper-accent #3E5FD9`.
+
+Rules:
+- The page is calm navy-black; **blue is used sparingly** (dots, a few highlighted words, links, the primary button, the diagram).
+- No gradients on text, no glassmorphism, no neon glows, no purple-pink gradients, no emojis.
+- Check that every text color passes WCAG AA contrast against its background.
+
+### 3.2 Typography
+
+| Style | Font | Size (fluid) | Weight | Line-height | Letter-spacing | Notes |
+|---|---|---|---|---|---|---|
+| Hero title | Hubot Sans | `clamp(3rem, 6vw, 5.25rem)` | 800, `font-stretch: 112%` | 0.93 | -0.035em | UPPERCASE, hero only |
+| Section heading (h2) | Mona Sans | `clamp(2.25rem, 4.2vw, 3.75rem)` | 600 | 1.0 | -0.045em | one word in *serif italic* |
+| Serif accent | Newsreader *italic* | same as heading | 400 | — | -0.015em | e.g. "*help*", "*shipped*", "*been*" |
+| About lead | Mona Sans | `clamp(1.5rem, 2.4vw, 2.15rem)` | 500 | 1.32 | -0.022em | |
+| Body | Mona Sans | 17px | 400 | 1.65 | 0 | max width 62ch |
+| Small / meta | Mona Sans | 15px | 400 | 1.5 | 0 | |
+| Labels, dates, eyebrow | Monaspace Neon | 12–13px | 400–500 | 1.4 | +0.08em | eyebrow is UPPERCASE |
+
+- **The round dot:** every section heading and the hero title end with a small **round dot in the accent color** instead of a period: an inline element of `0.16em × 0.16em`, `border-radius: 50%`, sitting on the baseline. Make it a `<Dot />` component. The wordmark **AHMAD** in the top-left also ends with this dot.
+- Use `text-wrap: balance` on headings and `text-wrap: pretty` on paragraphs.
+- **Do not use** small "(01) Section" labels or eyebrow labels above section headings. Only the hero has an eyebrow.
+
+### 3.3 Layout
+
+- Content is centered with **max width 1280px** and side padding `clamp(20px, 5.5vw, 80px)`.
+- Vertical space between sections: `clamp(96px, 12vw, 150px)`.
+- **Section header pattern** (used by every section after the hero): the heading on the left, a short muted sentence on the right (max 400px wide) with an optional underlined link under it ("All projects →", "Download full CV ↓"). On mobile, stack them.
+- Radius: buttons 999px (pills), cards 24px, logo tiles 20px.
+- Borders are 1px `--line`. No heavy shadows.
+
+### 3.4 Buttons and links
+
+- **Primary button:** pill, 50px tall, vertical gradient `--accent-soft → --accent-strong`, text `--on-accent`, 1px top inner highlight, soft accent glow under it.
+- **Secondary button:** pill, transparent, 1px `--line` border.
+- **Text links:** underlined (`text-underline-offset: 5px`, 1px thickness), with an arrow (↗ external, ↓ download, → internal).
+- Build one reusable `<Button variant="primary|secondary" />` component. **I will give you exact hover effects for buttons later.** For now: on hover the arrow moves 3px and the button brightens slightly (150ms).
+- Visible focus ring on everything: 2px `--accent`, 3px offset.
+
+---
+
+## 4. Page structure
+
+**Pages:**
+- `/` the home page (all sections below)
+- `/work` a simple list of all projects (reuse the project card)
+- `/work/[slug]` a case study page per project
+- a custom 404
+
+**Home page order:** Hero → About → How I can help (light) → Selected work → Experience → Tools → Contact → Footer.
+
+**Navigation:** there is **no navbar**. Top-left is the wordmark **AHMAD●** (links home). Top-right is a secondary pill button **"Let's talk →"** (scrolls to Contact) plus a small round **theme toggle** (sun/moon icon, 40px). These scroll away with the page. They are not fixed.
+
+---
+
+## 5. Hero
+
+Match the hero in `design-reference.jpg` exactly.
+
+**Layout (desktop):** left column (≈55%) holds text; right column holds the system diagram, which may overlap slightly into the left column's space but never touches the text. Hero height: `min(100svh, 900px)`, min 680px. Background: `--bg` with a soft radial glow of `--surface` behind the diagram.
+
+**Text (left):**
+1. Eyebrow in Monaspace, accent color: `SOFTWARE ENGINEER · 3 YEARS SHIPPING`
+2. Title in 3 lines: `I BUILD` / `SYSTEMS THAT` / `STAY UP●`; the last line is in `--accent`, ending in the round dot.
+3. Paragraph (`--muted`, 20px, max 480px).
+4. Buttons: **Send a request →** (primary; scrolls to Contact) and **View the work** (secondary; scrolls to Selected work).
+
+**The system diagram (right): an isometric SVG built in code** (`components/hero/SystemDiagram.tsx`). Six rounded "soft modules" in graphite with accent-blue parts, sitting on a faint dot grid, connected by thin cables with small glowing packets travelling along them. Each module has one simple line icon on top (use lucide icons drawn flat in the isometric plane, or simple SVG paths):
+
+| Module | Shape | Icon | Label | Sub-label |
+|---|---|---|---|---|
+| Contact | rounded cube on a base | envelope (white) | CONTACT | Say hello |
+| About | round puck with a blue ring on top | person (blue) | ABOUT | Who I am |
+| Work | 2×2 rounded cubes on one base; front-top cube has a blue top | grid | WORK | Selected projects |
+| Now | long rounded capsule (queue) on two feet, blue dots inside, round cap with a clock | clock | NOW | What I'm building |
+| Experience | 3 stacked cylinders with blue glowing seams | briefcase | EXPERIENCE | Where I've worked |
+| Skills | stacked hexagon plates, top plate blue | code `< >` | SKILLS | Tools I use |
+
+- Module colors: tops `#232A3D`, sides `#1B2133` / `#141A29`, bases `#161C2C`; blue parts use `--accent` with darker sides (`#5C78D9` / `#4259B0`).
+- Labels: name in Hubot Sans 700, 12px, wide, uppercase, with a small blue dot before it; the sub-label in Mona Sans 12px `--muted`; connected to the module by a thin 1px leader line.
+- **No technical numbers anywhere** (no RPS, latency, uptime…).
+
+**Diagram interactions (simple):**
+- **Hover a module:** it lifts 6px, its top edge glows blue, the other modules dim to 60%, and a small card appears near it (`--surface`, 1px `--line`, 14px radius) with the name, one plain sentence and "Click to open →". The sentences:
+  - Contact: "Email me or send a message. I reply within a day."
+  - About: "A bit about me and how I like to work."
+  - Work: "3 selected projects: payments, logistics and open source."
+  - Now: "What I'm building and learning right now."
+  - Experience: "3 roles since 2023, plus where it started."
+  - Skills: "The languages and tools I use every week."
+- **Click a module:** smooth-scroll to its section (Now → About section is fine).
+- **Mouse move:** the whole diagram shifts gently (max 10px) toward the cursor.
+- **Packets** loop along the cables continuously (Motion or CSS `offset-path`), blue and white, each with a soft glow.
+- On mobile, the diagram sits **below** the text, scaled to fit the width; hover cards become tap cards.
+
+---
+
+## 6. Sections
+
+### 6.1 About ("Hi, I'm *Ahmad*●")
+- Two columns: left (wide) has the heading "Hi, I'm *Ahmad*●", then the **lead paragraph** in large text where `when they break` is in serif italic accent color and the last sentence ("My job is to make sure they don't.") is in `--muted`, then the "more" paragraph in normal body size, muted.
+- Right column (≈380px): the **facts list**, each row a label on the left (muted) and value on the right, separated by 1px lines. Under it, three underlined links: **Download CV ↓**, **GitHub ↗**, **LinkedIn ↗**.
+- No photo.
+
+### 6.2 How I can help (the light section)
+- Full-width band in `--paper` colors (light, even in dark mode).
+- Header: "How I can *help*●" + the sentence "Where I add the most value — from the database table to the button your users click."
+- Four rows separated by `--paper-line`. Each row: a big number `01`–`04` (Mona Sans 700, 56px), shown **as an outline** (`-webkit-text-stroke: 1.2px`, transparent fill), then the title (26px, 600), the description (muted), and a small `→` on the far right.
+- Extra bottom padding (≈190px) so the next section can slide over it.
+
+### 6.3 Selected work ("A few things I've *shipped*●")
+- A dark panel (`--bg`) with **40px rounded top corners** that overlaps the bottom of the light section by 80px, so it looks like it slides up over it.
+- Header: heading + "Real products used by real people. Each one with a desktop and a mobile view." + link "All projects →" (to `/work`).
+- **Project card** (`--surface`, 1px `--line`, 24px radius):
+  - Top row: number in accent Monaspace (`01`), project name (28px, 600), the "kind" line in muted, and on the right two underlined links: **Case study** (→ `/work/[slug]`) and **Visit site ↗** (accent color).
+  - Body: left, the **desktop screenshot inside a simple browser frame** (dark bar with 3 dots and the URL); the **phone screenshot** in a phone frame (rounded 34px, notch) **overlapping the bottom-right corner** of the browser frame. Right column (≈330px): the story paragraph (bold parts in `--text`) and the stack as a muted Monaspace line separated by `·`.
+- **Stacking effect** (like the reference): each card is `position: sticky` with `top: 24px + index × 64px`, so when you scroll, the next card slides over the previous one and the earlier cards' **header rows stay visible** above it. Cards that are covered scale down to 0.96 and dim slightly (Part 7). Use plain CSS sticky. No libraries.
+
+### 6.4 Experience ("Where I've *been*●")
+- Header: heading + "Three years across fintech and logistics, plus where it all started." + link "Download full CV ↓".
+- A simple list: each row has the years (Monaspace, muted) | role (20px, 600) with "company · place" under it in muted | the one-line description (muted). Rows separated by 1px lines. The current role has a small **pulsing accent dot** after it.
+
+### 6.5 Tools ("Tools I use *every week*●")
+- Header: heading + "The languages and tools I reach for most. Always learning the next one."
+- **Logo strip**: real official logos from `react-icons` (Simple Icons, e.g. `SiTypescript`, `SiJavascript`, `SiNodedotjs`, `SiPython`, `SiGo`, `SiReact`, `SiNextdotjs`, `SiHtml5`, `SiCss`, `SiPostgresql`, `SiRedis`, `SiDocker`, `SiGit`; for AWS use a Devicon icon such as `DiAws` if Simple Icons doesn't have it). Check the exact icon names in the installed version.
+  - Each item: logo (36px) centered in a 72px tile (`--surface`, 1px `--line`, 20px radius), with the tool name below (14px, muted).
+  - Logos are light grey by default; **on hover the logo turns its official brand color** and the tile lifts 4px.
+  - The row is duplicated and **glides slowly from left to right in an endless loop** (≈40s per loop, CSS animation), fades out at both edges (mask gradient), and **pauses on hover**.
+  - Map the names in `site.stack` to icons in one small `techIcons.ts` file.
+
+### 6.6 Contact ("Have something in mind? *Let's talk*●")
+- One large panel (`--surface`, 1px `--line`, 32px radius, 80px padding) with a soft accent radial glow in its top-left corner.
+- Left: the big heading (Mona Sans 600, `clamp(2.75rem, 6vw, 5.25rem)`, two lines, "Let's talk" in serif italic accent) and "Open to full-time roles and the occasional freelance project. I usually reply within a day."
+- Right: "Email" label, the email address (28px, underlined), then **Copy email** (primary; copies to clipboard and changes to "Copied ✓" for 2s, announced to screen readers) and **LinkedIn ↗** (secondary).
+- No contact form.
+
+### 6.7 Footer
+One quiet row in Monaspace 12.5px muted, with a 1px top line: `© 2026 Ahmad · Designed and built by me` · `GitHub · LinkedIn · CV` · `Back to top ↑` (underlined, smooth-scrolls up).
+
+---
+
+## 7. Animations (the "growing and shrinking" feel, beginner-friendly)
+
+Use Motion's `useScroll` + `useTransform` for scroll effects and `whileInView` for reveals. Put shared values (easing `[0.22, 1, 0.36, 1]`, durations) in `src/lib/motion.ts`. Animate only `transform` and `opacity` for smoothness.
+
+| Where | Animation |
+|---|---|
+| **Page load (hero)** | Eyebrow fades in → title lines slide up one by one from a mask (stagger 90ms) → paragraph and buttons fade up → diagram modules **pop in one by one** (scale 0.8 → 1, fade in, small bounce), cables draw in, then packets start moving. Total ≈1.6s. |
+| **Hero on scroll** | As you scroll down through the hero, the **diagram shrinks** (scale 1 → 0.82), tilts back slightly (rotateX 0 → 12deg), fades to 0.3 and moves up a little; the text moves up slightly faster. Scrolling back up **grows it back**. |
+| **Section headers** | Heading words slide up from a mask (stagger 50ms); the side sentence fades in after. |
+| **About** | The lead paragraph **grows in**: scale 0.96 → 1 and opacity 0 → 1 as it enters; facts rows fade up one by one. |
+| **How I can help** | Each row slides in from 24px below; as a row reaches the middle of the screen, its **outlined number fills with blue** (`--paper-accent`) and the arrow moves 4px. |
+| **Selected work** | The dark panel's rounded top corners scale from 0.96 to 1 as it slides over the light section. Each project card **grows in** (scale 0.94 → 1) as it arrives; when the next card covers it, it **shrinks** to 0.96 and dims to 70%. The phone frame floats up 20px as the card enters. |
+| **Experience** | Rows fade up one by one; the current-role dot pulses. |
+| **Tools** | Endless glide (CSS), pause on hover. |
+| **Contact** | The big heading **grows** from 0.92 → 1 scale as the panel enters; the accent glow slowly drifts. |
+| **Dots** | The hero "STAY UP●" dot pulses softly (opacity 1 → 0.6 → 1, 2.4s). |
+
+**Reduced motion:** if `prefers-reduced-motion` is on, disable Lenis, scroll scaling, packets and pulsing. Everything appears with a simple 200ms fade, and the diagram is shown static.
+
+---
+
+## 8. Case study page `/work/[slug]`
+- Top-left wordmark + "← All projects" link; top-right theme toggle.
+- Header: project number + name (big heading with the dot), kind line, and a row: **Visit site ↗** / **GitHub ↗** (if any).
+- A row of facts: Role · Timeline · Stack.
+- The large desktop image in the browser frame with the phone overlapping (same component as the card).
+- Sections **Problem**, **Approach**, **Outcome**, each with a small heading and 1–2 paragraphs (max 62ch).
+- At the bottom: "Next project →" linking to the next case study.
+
+`/work`: the "A few things I've *shipped*●" header and all project cards (without the sticky stacking).
+404: centered "Page not *found*●", one sentence and a "Back home →" button.
+
+---
+
+## 9. Responsive
+- Breakpoints: 640, 768, 1024, 1280. Test at **390, 768, 1024, 1440**.
+- Mobile: hero text first, diagram below; section headers stack; About facts go under the paragraph; service rows stack (number, title, text); project cards stack (browser image, phone below/overlapping less, then text) and **don't use sticky stacking below 768px**; experience rows stack.
+- No horizontal scrolling at any width. Tap targets at least 44px.
+
+## 10. Quality
+- Semantic HTML (`header`, `main`, `section` with headings, `footer`), one `h1` (the hero title), a skip-to-content link, alt text on images, keyboard navigation for everything (diagram modules are focusable buttons with names).
+- SEO: page titles and descriptions, Open Graph image (dark navy, "AHMAD●" and "Software Engineer"), favicon (a navy square with a periwinkle dot).
+- Performance: `next/image` for screenshots, lazy-load below the hero, fonts load without layout shift. Aim for Lighthouse 90+ on mobile.
+- No console errors, no hydration warnings, `npm run build` passes.
+
+## 11. File structure (suggested)
+```
+src/
+  app/ layout.tsx, page.tsx, work/page.tsx, work/[slug]/page.tsx, not-found.tsx, globals.css
+  content/site.ts
+  components/
+    hero/ Hero.tsx, SystemDiagram.tsx, Packets.tsx
+    sections/ About.tsx, Services.tsx, Work.tsx, Experience.tsx, Tools.tsx, Contact.tsx, Footer.tsx
+    ui/ Button.tsx, Dot.tsx, SectionHeader.tsx, ProjectCard.tsx, BrowserFrame.tsx, PhoneFrame.tsx, ThemeToggle.tsx, Reveal.tsx
+  lib/ motion.ts, techIcons.ts
+public/ projects/ (placeholder screenshots), cv.pdf (placeholder)
+```
+
+## 12. Build order (do all steps, check each one, don't stop between them)
+1. Project setup, fonts, colors (dark + light), `site.ts`, base components (Button, Dot, SectionHeader).
+2. Hero with the SVG system diagram, load animation, hover cards and click-to-scroll.
+3. About and "How I can help".
+4. Selected work with project cards, frames, placeholder screenshots and sticky stacking.
+5. Experience, Tools (real logos) and Contact + Footer.
+6. All scroll animations (Part 7), Lenis, reduced motion.
+7. `/work`, `/work/[slug]` and 404 pages.
+8. Responsive pass, light mode check, accessibility, SEO, `npm run build`.
+9. Final comparison: screenshot the full home page at 1440px and compare it side by side with `design-reference.jpg`. Fix spacing, sizes and colors until they match. Then give me the final report.
+
+
+--- END OF FILE: PORTFOLIO-BUILD-PROMPT.md ---
+
+
+--- FILE: scripts/make-cv.mjs ---
+// Writes a one-page placeholder CV to public/cv.pdf.
+// Replace public/cv.pdf with your real CV (keep the same file name).
+import { writeFileSync } from "node:fs";
+
+const lines = [
+  ["F2", 26, "Ahmad"],
+  ["F1", 13, "Software Engineer - Karachi, Pakistan - hello@ahmad.dev"],
+  ["F1", 11, ""],
+  ["F1", 11, "This is a placeholder CV. Replace public/cv.pdf with your real one."],
+];
+let y = 760;
+const text = lines
+  .map(([font, size, str]) => {
+    const out = `BT /${font} ${size} Tf 72 ${y} Td (${str}) Tj ET`;
+    y -= size + 14;
+    return out;
+  })
+  .join("\n");
+
+const objects = [
+  "<< /Type /Catalog /Pages 2 0 R >>",
+  "<< /Type /Pages /Kids [3 0 R] /Count 1 >>",
+  "<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 4 0 R /F2 5 0 R >> >> /Contents 6 0 R >>",
+  "<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>",
+  "<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold >>",
+  `<< /Length ${text.length} >>\nstream\n${text}\nendstream`,
+];
+
+let pdf = "%PDF-1.4\n";
+const offsets = [];
+objects.forEach((obj, i) => {
+  offsets.push(pdf.length);
+  pdf += `${i + 1} 0 obj\n${obj}\nendobj\n`;
+});
+const xref = pdf.length;
+pdf += `xref\n0 ${objects.length + 1}\n0000000000 65535 f \n`;
+pdf += offsets.map((o) => `${String(o).padStart(10, "0")} 00000 n \n`).join("");
+pdf += `trailer\n<< /Size ${objects.length + 1} /Root 1 0 R >>\nstartxref\n${xref}\n%%EOF\n`;
+
+writeFileSync("public/cv.pdf", pdf);
+console.log("✓ public/cv.pdf");
+
+
+--- END OF FILE: scripts/make-cv.mjs ---
+
+
+--- FILE: scripts/make-placeholders.mjs ---
+// Generates the placeholder project screenshots in public/projects/.
+// Run with:  node scripts/make-placeholders.mjs
+// Replace the PNGs later with real screenshots of the same name and size
+// (desktop 1600×1000, mobile 780×1690).
+
+import { mkdirSync } from "node:fs";
+import sharp from "sharp";
+
+const OUT = "public/projects";
+mkdirSync(OUT, { recursive: true });
+
+// Palette for the fake app UIs
+const C = {
+  frame: "#121117",
+  panel: "#1a1820",
+  panel2: "#221f29",
+  line: "#2c2833",
+  text: "#f6f1ea",
+  muted: "#9c94a3",
+  dim: "#5f5866",
+  accent: "#ff6b35",
+  accentDeep: "#e0521f",
+  green: "#3ddc97",
+  greenBg: "#163326",
+  amber: "#f5a524",
+  amberBg: "#3a2a12",
+  blueBg: "#3a1d12",
+  map: "#17151c",
+  road: "#27232d",
+  water: "#141219",
+};
+
+const SANS = "Segoe UI, Helvetica, Arial, sans-serif";
+const MONO = "Consolas, Menlo, monospace";
+
+const svg = (w, h, body) =>
+  `<svg xmlns="http://www.w3.org/2000/svg" width="${w}" height="${h}" viewBox="0 0 ${w} ${h}">
+  <defs>
+    <linearGradient id="blue" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="${C.accent}"/><stop offset="1" stop-color="${C.accentDeep}"/>
+    </linearGradient>
+  </defs>
+  <rect width="${w}" height="${h}" fill="${C.frame}"/>${body}</svg>`;
+
+const t = (x, y, str, size, fill = C.text, opts = "") =>
+  `<text x="${x}" y="${y}" font-family="${opts.includes("mono") ? MONO : SANS}" font-size="${size}" fill="${fill}" ${opts.replace("mono", "")}>${str}</text>`;
+
+const badge = (x, y, label, kind) => {
+  const map = { ok: [C.greenBg, C.green], warn: [C.amberBg, C.amber], info: [C.blueBg, C.accent] };
+  const [bg, fg] = map[kind];
+  const w = label.length * 13 + 26;
+  return `<rect x="${x}" y="${y - 22}" width="${w}" height="32" rx="7" fill="${bg}"/>${t(x + 13, y, label, 18, fg, 'mono font-weight="600" letter-spacing="1"')}`;
+};
+
+/* ------------------------------ Ledgerline ------------------------------ */
+function ledgerDesktop() {
+  const rows = [
+    ["TXN-88213 · Meezan", "PKR 42,500", "MATCHED", "ok"],
+    ["TXN-88214 · HBL", "PKR 9,990", "MATCHED", "ok"],
+    ["TXN-88215 · Stripe", "USD 129.00", "REVIEW", "warn"],
+    ["TXN-88216 · UBL", "PKR 120,000", "MATCHED", "ok"],
+    ["TXN-88217 · Wise", "USD 980.40", "MATCHED", "ok"],
+  ];
+  const bars = [30, 44, 38, 58, 50, 66, 62, 80, 74, 96, 88, 100];
+  let body = `<rect x="86" y="60" width="1430" height="720" rx="22" fill="${C.panel}"/>`;
+  body += t(128, 130, "Settlements", 30, C.text, 'font-weight="600"');
+  body += t(1290, 125, "OCT 08 · LIVE", 20, C.muted, 'mono letter-spacing="2"');
+  body += t(128, 250, "99.6%", 66, C.text, 'font-weight="700" letter-spacing="-2"');
+  body += t(130, 288, "MATCHED TODAY", 18, C.muted, 'mono letter-spacing="2"');
+  body += t(400, 250, "18m", 66, C.text, 'font-weight="700" letter-spacing="-2"');
+  body += t(402, 288, "CLOSE TIME", 18, C.muted, 'mono letter-spacing="2"');
+  bars.forEach((h, i) => {
+    const bh = h * 1.15;
+    body += `<rect x="${1090 + i * 34}" y="${280 - bh}" width="22" height="${bh}" rx="4" fill="${C.accent}" opacity="${0.35 + (i / bars.length) * 0.65}"/>`;
+  });
+  rows.forEach(([id, amt, status, kind], i) => {
+    const y = 370 + i * 64;
+    body += t(128, y, id, 22, C.text, "mono");
+    body += t(1050, y, amt, 22, C.text, "mono");
+    body += badge(1300, y, status, kind);
+    body += `<line x1="128" y1="${y + 30}" x2="1476" y2="${y + 30}" stroke="${C.line}" stroke-width="2"/>`;
+  });
+  return svg(1600, 1000, body);
+}
+
+function ledgerMobile() {
+  const payouts = [
+    ["Payout #4821", "PKR 120,000 · HBL", "SENT", "ok"],
+    ["Payout #4822", "USD 980.40 · Wise", "QUEUED", "info"],
+    ["Payout #4823", "PKR 9,990 · UBL", "SENT", "ok"],
+    ["Payout #4824", "PKR 42,500 · Meezan", "SENT", "ok"],
+  ];
+  let body = t(56, 250, "Payouts", 52, C.text, 'font-weight="600"');
+  body += t(58, 296, "TODAY · LIVE", 24, C.muted, 'mono letter-spacing="3"');
+  body += `<rect x="50" y="340" width="680" height="400" rx="34" fill="url(#blue)"/>`;
+  body += t(100, 420, "MATCHED TODAY", 24, "#ffe2d6", 'mono letter-spacing="3"');
+  body += t(96, 560, "99.6%", 120, "#ffffff", 'font-weight="700" letter-spacing="-4"');
+  body += t(100, 640, "2,104,882 transactions", 30, "#ffe2d6");
+  payouts.forEach(([name, sub, status, kind], i) => {
+    const y = 860 + i * 190;
+    body += t(56, y, name, 40, C.text, 'font-weight="600"');
+    body += t(58, y + 46, sub, 24, C.muted, "mono");
+    body += `<g transform="translate(560 ${y + 12}) scale(1.4)">${badge(0, 0, status, kind)}</g>`;
+    body += `<line x1="56" y1="${y + 100}" x2="724" y2="${y + 100}" stroke="${C.line}" stroke-width="2"/>`;
+  });
+  body += `<rect x="0" y="1560" width="780" height="130" fill="${C.panel}"/>`;
+  body += t(56, 1630, "Settlement", 36, C.text, 'font-weight="600"');
+  return svg(780, 1690, body);
+}
+
+/* ------------------------------ Routewise ------------------------------- */
+function mapLayer(w, h, seed = 1) {
+  let s = `<rect width="${w}" height="${h}" fill="${C.map}"/>`;
+  s += `<path d="M0 ${h * 0.72} C ${w * 0.25} ${h * 0.6}, ${w * 0.45} ${h * 0.9}, ${w} ${h * 0.78} L ${w} ${h} L 0 ${h} Z" fill="${C.water}"/>`;
+  for (let i = 0; i < 9; i++) {
+    const x = ((i * 173 * seed) % w) + 20;
+    s += `<line x1="${x}" y1="0" x2="${x + 120}" y2="${h}" stroke="${C.road}" stroke-width="${i % 3 === 0 ? 12 : 5}"/>`;
+  }
+  for (let i = 0; i < 7; i++) {
+    const y = ((i * 151 * seed) % h) + 30;
+    s += `<line x1="0" y1="${y}" x2="${w}" y2="${y - 60}" stroke="${C.road}" stroke-width="${i % 3 === 0 ? 12 : 5}"/>`;
+  }
+  return s;
+}
+
+const pin = (x, y, color, r = 12) =>
+  `<circle cx="${x}" cy="${y}" r="${r * 2.2}" fill="${color}" opacity="0.18"/><circle cx="${x}" cy="${y}" r="${r}" fill="${color}" stroke="#140a05" stroke-width="4"/>`;
+
+function routeDesktop() {
+  let body = `<g transform="translate(470 0)">${mapLayer(1130, 1000)}`;
+  body += `<path d="M160 760 L 330 610 L 520 640 L 700 420 L 900 330" fill="none" stroke="${C.accent}" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>`;
+  body += `<path d="M260 240 L 420 330 L 520 640" fill="none" stroke="${C.accent}" stroke-width="5" stroke-dasharray="14 12" opacity="0.6"/>`;
+  [[160, 760], [520, 640], [900, 330], [260, 240], [760, 760], [980, 600]].forEach(([x, y], i) => (body += pin(x, y, i === 2 ? C.green : C.accent)));
+  body += `</g>`;
+  body += `<rect x="0" y="0" width="470" height="1000" fill="${C.panel}"/>`;
+  body += t(40, 80, "Dispatch", 34, C.text, 'font-weight="600"');
+  body += t(40, 120, "128 ACTIVE · 14 WAITING", 18, C.muted, 'mono letter-spacing="2"');
+  const drivers = [
+    ["Bilal R.", "Order #7712 · 4 min", "EN ROUTE", "info"],
+    ["Sana K.", "Order #7713 · 9 min", "PICKUP", "warn"],
+    ["Usman T.", "Order #7709 · done", "DONE", "ok"],
+    ["Hira M.", "Order #7715 · 12 min", "EN ROUTE", "info"],
+    ["Ali Z.", "Order #7716 · 2 min", "EN ROUTE", "info"],
+    ["Ayesha F.", "Order #7701 · done", "DONE", "ok"],
+  ];
+  drivers.forEach(([name, sub, st, kind], i) => {
+    const y = 200 + i * 125;
+    body += `<rect x="28" y="${y - 50}" width="414" height="108" rx="16" fill="${i === 0 ? C.panel2 : "none"}"/>`;
+    body += `<circle cx="78" cy="${y + 4}" r="24" fill="${C.blueBg}"/>`;
+    body += t(68, y + 12, name[0], 22, C.accent, 'font-weight="700"');
+    body += t(120, y, name, 24, C.text, 'font-weight="600"');
+    body += t(120, y + 32, sub, 18, C.muted, "mono");
+    body += badge(318, y + 14, st, kind);
+  });
+  return svg(1600, 1000, body);
+}
+
+function routeMobile() {
+  let body = `<g>${mapLayer(780, 1100, 2)}`;
+  body += `<path d="M120 900 L 260 700 L 420 760 L 560 480 L 660 300" fill="none" stroke="${C.accent}" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>`;
+  body += pin(120, 900, C.accent, 16) + pin(660, 300, C.green, 16) + pin(420, 760, C.accent, 12);
+  body += `</g>`;
+  body += `<rect x="0" y="1020" width="780" height="670" rx="48" fill="${C.panel}"/>`;
+  body += `<rect x="350" y="1048" width="80" height="10" rx="5" fill="${C.line}"/>`;
+  body += t(56, 1140, "Order #7712", 46, C.text, 'font-weight="600"');
+  body += t(58, 1190, "ARRIVING IN 4 MIN", 24, C.accent, 'mono letter-spacing="3"');
+  [["Pickup", "Saddar warehouse"], ["Drop-off", "Clifton Block 5"], ["Package", "2 boxes · 6 kg"]].forEach(([k, v], i) => {
+    const y = 1290 + i * 90;
+    body += t(56, y, k, 28, C.muted);
+    body += t(724, y, v, 28, C.text, 'text-anchor="end" font-weight="600"');
+    body += `<line x1="56" y1="${y + 34}" x2="724" y2="${y + 34}" stroke="${C.line}" stroke-width="2"/>`;
+  });
+  body += `<rect x="56" y="1560" width="668" height="86" rx="43" fill="url(#blue)"/>`;
+  body += t(390, 1615, "Mark as delivered", 30, "#140a05", 'text-anchor="middle" font-weight="700"');
+  return svg(780, 1690, body);
+}
+
+/* ------------------------------ Pulsecheck ------------------------------ */
+function uptimeBars(x, y, w, count, h, amberAt = [], gap = 4) {
+  const bw = (w - gap * (count - 1)) / count;
+  let s = "";
+  for (let i = 0; i < count; i++) {
+    s += `<rect x="${(x + i * (bw + gap)).toFixed(1)}" y="${y}" width="${bw.toFixed(1)}" height="${h}" rx="${Math.min(3, bw / 3).toFixed(1)}" fill="${amberAt.includes(i) ? C.amber : C.green}"/>`;
+  }
+  return s;
+}
+
+function pulseDesktop() {
+  let body = `<rect x="230" y="150" width="1145" height="470" rx="24" fill="${C.panel}"/>`;
+  body += `<circle cx="282" cy="208" r="10" fill="${C.green}"/>`;
+  body += t(306, 217, "All systems operational", 28, C.text, 'font-weight="600"');
+  [["api.example.com", "99.98%"], ["dashboard", "100%"], ["webhooks", "99.91%"]].forEach(([name, pct], i) => {
+    const y = 280 + i * 110;
+    body += t(270, y, name, 21, C.text);
+    body += t(1335, y - 4, pct, 18, C.muted, 'mono text-anchor="end"');
+    body += uptimeBars(270, y + 18, 1065, 36, 42, [12, 25]);
+  });
+  return svg(1600, 1000, body);
+}
+
+function pulseMobile() {
+  let body = `<circle cx="70" cy="226" r="14" fill="${C.green}"/>`;
+  body += t(100, 240, "All systems up", 46, C.text, 'font-weight="600"');
+  body += t(58, 292, "STATUS.EXAMPLE.COM", 24, C.muted, 'mono letter-spacing="3"');
+  [["API", "99.98%"], ["Dashboard", "100%"], ["Webhooks", "99.91%"], ["Workers", "99.99%"]].forEach(([name, pct], i) => {
+    const y = 420 + i * 230;
+    body += t(56, y, name, 34, C.text, 'font-weight="500"');
+    body += t(724, y - 6, pct, 24, C.muted, 'mono text-anchor="end"');
+    body += uptimeBars(56, y + 36, 668, 30, 80, [12, 27], 6);
+  });
+  return svg(780, 1690, body);
+}
+
+const jobs = [
+  ["ledgerline-desktop", ledgerDesktop()],
+  ["ledgerline-mobile", ledgerMobile()],
+  ["routewise-desktop", routeDesktop()],
+  ["routewise-mobile", routeMobile()],
+  ["pulsecheck-desktop", pulseDesktop()],
+  ["pulsecheck-mobile", pulseMobile()],
+];
+
+for (const [name, markup] of jobs) {
+  await sharp(Buffer.from(markup)).png().toFile(`${OUT}/${name}.png`);
+  console.log(`✓ ${OUT}/${name}.png`);
+}
+
+
+--- END OF FILE: scripts/make-placeholders.mjs ---
+
+
+--- FILE: snapshot.mjs ---
+// create_snapshot.mjs
+
+import fs from 'fs/promises';
+import path from 'path';
+
+// --- CONFIGURATION ---
+const ROOT_DIRECTORY = '.';
+const OUTPUT_FILE = 'project_snapshot.txt';
+
+// Critical config files to always prepend at the top for context
+const CRITICAL_FILES = [
+  'package.json', 'tsconfig.json', 'next.config.mjs', 
+  'next.config.js', 'postcss.config.js', 'tailwind.config.js'
+];
+
+// -- 🚫 EXCLUSIONS --
+
+// Ignore by exact name (applies to files and folders EVERYWHERE in the tree)
+const IGNORE_NAMES = [
+  'node_modules', '.git', '.next', 'out', 'dist', 'build', '.vscode', '.idea',
+  'pnpm-lock.yaml', 'package-lock.json', 'yarn.lock',
+  '.env', '.env.local', '.env.production', '.env.development',
+  OUTPUT_FILE,
+  '__pycache__',
+  'modules',
+  'photos', 
+  'records',
+  '.gitignore'
+];
+
+// Ignore by relative path from the root (matches specific folders or files)
+// Always use forward slashes (e.g., 'public/images')
+const IGNORE_PATHS = [
+  'public/images',
+  'public/fonts'
+];
+
+
+// -- ✅ INCLUSIONS --
+
+// Include files by their extension
+const INCLUDE_EXTENSIONS = [
+  '.js', '.ts', '.jsx', '.tsx',    // Scripts
+  '.json', '.html',                // Configs
+  '.scss', '.css', '.module.scss', '.tsx', // Styles
+  '.md', '.mdx',                   // Documentation
+  '.mjs', '.cjs', '.webmanifest',  // JS Modules
+  '.svg', '.py', '.go', '.rs',     // Code / SVG
+  '.java', '.cpp', '.c', '.h', '.asm'
+];
+
+// Include specific files by exact name (useful for files without extensions)
+const INCLUDE_FILES = [
+  'Dockerfile',
+  'Makefile',
+  '.prettierrc',
+  '.eslintrc.json'
+];
+
+// Force include ALL files within specific directory paths (ignores extension checks)
+// Always use forward slashes (e.g., 'src/special_folder')
+const INCLUDE_PATHS = [
+  // 'docs/raw_assets'
+];
+
+// --- SCRIPT LOGIC ---
+
+// Helper function to determine if a file/folder should be ignored
+function isIgnored(name, relativePath) {
+  if (IGNORE_NAMES.includes(name)) return true;
+  
+  for (const ignorePath of IGNORE_PATHS) {
+    // Check if it's the exact path or a sub-path of the ignored path
+    if (relativePath === ignorePath || relativePath.startsWith(ignorePath + '/')) {
+      return true;
+    }
+  }
+  return false;
+}
+
+// Helper function to determine if a file should be included in the source dump
+function isIncluded(name, relativePath) {
+  const ext = path.extname(name);
+  if (INCLUDE_EXTENSIONS.includes(ext)) return true;
+  if (INCLUDE_FILES.includes(name)) return true;
+  
+  for (const includePath of INCLUDE_PATHS) {
+    if (relativePath === includePath || relativePath.startsWith(includePath + '/')) {
+      return true;
+    }
+  }
+  return false;
+}
+
+async function generateSnapshot() {
+  console.log('🚀 Starting to generate project snapshot...');
+  try {
+    // Clear the output file if it exists, or create it.
+    await fs.writeFile(OUTPUT_FILE, '');
+
+    // 1. Write a header
+    await appendToOutput(`--- Project Snapshot ---`);
+    await appendToOutput(`--- Generated on: ${new Date().toUTCString()} ---\n`);
+
+    // 2. Add critical configuration files first for context
+    await appendToOutput(`\n\n=============== 📌 CRITICAL CONFIG FILES ===============\n`);
+    for (const file of CRITICAL_FILES) {
+      try {
+        const content = await fs.readFile(path.join(ROOT_DIRECTORY, file), 'utf-8');
+        await appendToOutput(`\n--- FILE: ${file} ---\n`);
+        await appendToOutput(content);
+        await appendToOutput(`\n--- END OF FILE: ${file} ---\n`);
+      } catch (error) {
+        if (error.code !== 'ENOENT') {
+            console.warn(`⚠️  Could not read critical file: ${file}`);
+        }
+      }
+    }
+
+    // 3. Generate and append the directory tree
+    await appendToOutput(`\n\n=============== 🌳 DIRECTORY STRUCTURE ===============\n`);
+    const tree = await generateTree(ROOT_DIRECTORY, '');
+    await appendToOutput(tree);
+
+    // 4. Append the content of all other relevant files
+    await appendToOutput(`\n\n=============== 📄 SOURCE CODE & FILES ===============\n`);
+    await processDirectory(ROOT_DIRECTORY);
+
+    console.log(`✅ Success! Project snapshot saved to ${OUTPUT_FILE}`);
+
+  } catch (error) {
+    console.error('❌ An error occurred while generating the snapshot:', error);
+  }
+}
+
+async function appendToOutput(content) {
+  await fs.appendFile(OUTPUT_FILE, content + '\n');
+}
+
+async function generateTree(dir, prefix) {
+  let treeString = '';
+  try {
+    const entries = await fs.readdir(dir, { withFileTypes: true });
+    
+    // Filter out ignored items
+    const filteredEntries = entries.filter(entry => {
+      const fullPath = path.join(dir, entry.name);
+      const relativePath = path.relative(ROOT_DIRECTORY, fullPath).replace(/\\/g, '/');
+      return !isIgnored(entry.name, relativePath);
+    });
+
+    for (const [index, entry] of filteredEntries.entries()) {
+      const connector = index === filteredEntries.length - 1 ? '└── ' : '├── ';
+      treeString += `${prefix}${connector}${entry.name}\n`;
+      
+      if (entry.isDirectory()) {
+        const newPrefix = prefix + (index === filteredEntries.length - 1 ? '    ' : '│   ');
+        const fullPath = path.join(dir, entry.name);
+        treeString += await generateTree(fullPath, newPrefix);
+      }
+    }
+  } catch (error) {
+    // Ignore errors for directories we can't read (e.g., permissions)
+  }
+  return treeString;
+}
+
+async function processDirectory(dir) {
+  try {
+    const entries = await fs.readdir(dir, { withFileTypes: true });
+    for (const entry of entries) {
+      const fullPath = path.join(dir, entry.name);
+      // Normalize slashes for consistency across OSes (Windows/Mac/Linux)
+      const relativePath = path.relative(ROOT_DIRECTORY, fullPath).replace(/\\/g, '/');
+
+      // Check Exclusions
+      if (isIgnored(entry.name, relativePath)) {
+        continue;
+      }
+
+      if (entry.isDirectory()) {
+        await processDirectory(fullPath);
+      } else if (entry.isFile() && isIncluded(entry.name, relativePath)) {
+        try {
+          const content = await fs.readFile(fullPath, 'utf-8');
+          await appendToOutput(`\n--- FILE: ${relativePath} ---`);
+          await appendToOutput(content);
+          await appendToOutput(`\n--- END OF FILE: ${relativePath} ---\n`);
+        } catch (readError) {
+          console.warn(`⚠️  Could not read file: ${relativePath}`);
+        }
+      }
+    }
+  } catch (error) {
+    // Ignore errors for directories we can't read
+  }
+}
+
+// Run the main function
+generateSnapshot();
+
+--- END OF FILE: snapshot.mjs ---
+
+
+--- FILE: src/app/globals.css ---
+@import "tailwindcss";
+
+/* Dark mode is a class on <html> (set by next-themes) */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* "tour:" = big screens with motion allowed, where the pinned scroll tour runs */
+@custom-variant tour (@media (min-width: 900px) and (prefers-reduced-motion: no-preference));
+
+/* ------------------------------------------------------------------
+   1. Colour tokens — "Ember" (dark is the default)
+   ------------------------------------------------------------------ */
+:root,
+.dark {
+  --bg: #0b0a0f;
+  --surface: #15131b;
+  --line: #2a2531;
+  --text: #f6f1ea;
+  --muted: #9c94a3;
+  --accent: #ff6b35;
+  --accent-soft: #ff8f5e;
+  --accent-side-1: #e0521f;
+  --accent-side-2: #b23e14;
+  --on-accent: #140a05;
+
+  /* Graphite modules of the system diagram */
+  --mod-top: #2d313a;
+  --mod-side-l: #25282f;
+  --mod-side-r: #1b1d22;
+  --mod-base-top: #1f2229;
+  --mod-base-l: #181a1f;
+  --mod-base-r: #121418;
+  --mod-icon: #5a5f6b;
+  --mod-shadow: #000000;
+  --cable: #2f2b36;
+  --grid-dot: #24212a;
+
+  color-scheme: dark;
+}
+
+.light {
+  --bg: #f7f4ef;
+  --surface: #ffffff;
+  --line: #e4ddd3;
+  --text: #17131a;
+  --muted: #6b6470;
+  --accent: #e8541f;
+  --accent-soft: #ff7a45;
+  --accent-side-1: #d04a18;
+  --accent-side-2: #a93a11;
+  --on-accent: #ffffff;
+
+  --mod-top: #ffffff;
+  --mod-side-l: #eeeae2;
+  --mod-side-r: #dfdad0;
+  --mod-base-top: #e9e4db;
+  --mod-base-l: #e2ddd3;
+  --mod-base-r: #d6d0c5;
+  --mod-icon: #b3aca3;
+  --mod-shadow: #8a7f70;
+  --cable: var(--line);
+  --grid-dot: var(--line);
+
+  color-scheme: light;
+}
+
+/* Device frames around the project screenshots (same in both themes) */
+:root {
+  --frame: #121117;
+  --frame-line: #2a2731;
+  --frame-dot: #36323e;
+  --frame-text: #8b8494;
+  --phone: #0c0b10;
+  --notch: #000000;
+
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --page-pad: clamp(20px, 5.5vw, 80px);
+}
+
+/* ------------------------------------------------------------------
+   2. Map tokens into Tailwind (bg-bg, text-muted, border-line, ...)
+   ------------------------------------------------------------------ */
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-line: var(--line);
+  --color-text: var(--text);
+  --color-muted: var(--muted);
+  --color-accent: var(--accent);
+  --color-accent-soft: var(--accent-soft);
+  --color-on-accent: var(--on-accent);
+  --color-frame: var(--frame);
+  --color-frame-line: var(--frame-line);
+  --color-frame-dot: var(--frame-dot);
+  --color-frame-text: var(--frame-text);
+  --color-phone: var(--phone);
+  --color-notch: var(--notch);
+
+  --font-display: "Hubot Sans Variable", system-ui, sans-serif;
+  --font-sans: "Mona Sans Variable", system-ui, sans-serif;
+  --font-mono: "Monaspace Neon", ui-monospace, monospace;
+}
+
+/* ------------------------------------------------------------------
+   3. Base
+   ------------------------------------------------------------------ */
+@layer base {
+  html {
+    background: var(--bg);
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-sans);
+    font-size: 18px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: clip;
+  }
+
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  ::selection {
+    background: var(--accent);
+    color: var(--on-accent);
+  }
+
+  /* Visible focus ring on everything */
+  :focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 6px;
+  }
+}
+
+/* ------------------------------------------------------------------
+   4. Reusable pieces
+   ------------------------------------------------------------------ */
+.container-page {
+  width: 100%;
+  max-width: calc(1280px + 2 * var(--page-pad));
+  margin-inline: auto;
+  padding-inline: var(--page-pad);
+}
+
+/* Big uppercase titles (hero + contact) */
+.title-hero {
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 5.7vw, 5.2rem);
+  font-weight: 800;
+  font-stretch: 112%;
+  line-height: 0.92;
+  letter-spacing: -0.035em;
+  text-transform: uppercase;
+}
+
+/* The contact title is a little smaller than the hero title (frame 6) */
+.title-contact {
+  font-size: clamp(2.6rem, 4.6vw, 4.2rem);
+}
+
+/* Chapter titles */
+.title-chapter {
+  font-family: var(--font-display);
+  font-size: clamp(2.4rem, 4.4vw, 4rem);
+  font-weight: 800;
+  font-stretch: 112%;
+  line-height: 0.95;
+  letter-spacing: -0.035em;
+  text-transform: uppercase;
+}
+
+/* Eyebrow / chapter number: "01 / ABOUT" */
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+/* Small mono labels */
+.label {
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.body-text {
+  font-size: 18px;
+  line-height: 1.6;
+  color: var(--muted);
+  max-width: 470px;
+}
+
+/* The round orange dot used instead of a period */
+.dot {
+  display: inline-block;
+  width: 0.17em;
+  height: 0.17em;
+  margin-left: 0.06em;
+  border-radius: 50%;
+  background: var(--accent);
+  vertical-align: baseline;
+}
+
+/* Pill buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4em;
+  height: 50px;
+  padding-inline: 24px;
+  border-radius: 999px;
+  font-size: 16px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.btn svg {
+  transition: transform 150ms var(--ease-out);
+}
+
+.btn:hover .arrow-right {
+  transform: translateX(3px);
+}
+.btn:hover .arrow-down {
+  transform: translateY(3px);
+}
+.btn:hover .arrow-up-right {
+  transform: translate(3px, -3px);
+}
+
+.btn-primary {
+  color: var(--on-accent);
+  background: linear-gradient(to bottom, var(--accent-soft), var(--accent));
+  box-shadow: 0 12px 30px -10px color-mix(in srgb, var(--accent) 70%, transparent);
+}
+
+.btn-secondary {
+  color: var(--text);
+  background: color-mix(in srgb, var(--bg) 60%, transparent);
+  border: 1px solid var(--line);
+}
+
+.btn-sm {
+  height: 44px;
+  padding-inline: 22px;
+  font-size: 15px;
+}
+
+/* Underlined text link */
+.text-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25em;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 5px;
+  font-weight: 500;
+}
+
+/* Pulsing dot on the current job (transform + opacity only) */
+.live-dot {
+  position: relative;
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.live-dot::after {
+  content: "";
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  border: 1px solid var(--accent);
+  animation: live-ping 2.4s var(--ease-out) infinite;
+}
+
+@keyframes live-ping {
+  0% {
+    transform: scale(0.6);
+    opacity: 0.9;
+  }
+  80%,
+  100% {
+    transform: scale(1.7);
+    opacity: 0;
+  }
+}
+
+/* Logo strip: glides left → right forever, pauses on hover */
+.marquee {
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 12%, #000 88%, transparent);
+  mask-image: linear-gradient(to right, transparent, #000 12%, #000 88%, transparent);
+}
+
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee 40s linear infinite;
+}
+
+.marquee:hover .marquee-track {
+  animation-play-state: paused;
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(-50%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+.tool-tile svg {
+  color: color-mix(in srgb, var(--text) 62%, var(--muted));
+  transition: color 200ms var(--ease-out);
+}
+
+.tool-item:hover .tool-tile svg {
+  color: var(--brand);
+}
+
+/* Progress rail: inactive = small dot, active = short orange pill (transform only) */
+.rail-pill {
+  opacity: 0;
+  transform: scaleY(0.3);
+  transition:
+    opacity 300ms var(--ease-out),
+    transform 300ms var(--ease-out);
+}
+
+.rail-dot.is-active .rail-pill {
+  opacity: 1;
+  transform: scaleY(1);
+}
+
+.rail-dot.is-active .rail-mark {
+  opacity: 0;
+}
+
+/* Header: scrolls away normally, stays fixed during the desktop tour */
+.site-header {
+  position: absolute;
+  inset-inline: 0;
+  top: 0;
+}
+
+/* Skip link */
+.skip-link {
+  position: absolute;
+  left: 16px;
+  top: -100px;
+  z-index: 100;
+  padding: 10px 16px;
+  border-radius: 999px;
+  background: var(--accent);
+  color: var(--on-accent);
+  font-weight: 600;
+}
+
+.skip-link:focus {
+  top: 16px;
+}
+
+/* ------------------------------------------------------------------
+   5. System diagram (SVG)
+   ------------------------------------------------------------------ */
+.diagram-label {
+  fill: var(--text);
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 12px;
+  font-stretch: 112%;
+  letter-spacing: 0.1em;
+}
+
+.diagram-sublabel {
+  fill: var(--muted);
+  font-family: var(--font-sans);
+  font-size: 12px;
+}
+
+/* Modules in the overview: hover / focus lift + dim the others */
+.mod {
+  transition: opacity 180ms ease;
+}
+
+.mod-lift {
+  transition: transform 180ms var(--ease-out);
+}
+
+.diagram[data-active] .mod {
+  opacity: 0.6;
+}
+
+.diagram[data-active] .mod.is-active {
+  opacity: 1;
+}
+
+.mod.is-active .mod-lift {
+  transform: translateY(-6px);
+}
+
+/* extra glow that only appears on hover (hidden on the static copies too) */
+.hot {
+  opacity: 0;
+  transition: opacity 180ms ease;
+}
+
+.mod.is-active .hot {
+  opacity: 1;
+}
+
+/* Packets travel along the cables (CSS offset-path, see Packets.tsx) */
+.packet {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 18px;
+  height: 18px;
+  margin: -9px 0 0 -9px;
+  offset-rotate: 0deg;
+  offset-anchor: center;
+  border-radius: 50%;
+  will-change: transform;
+  animation: packet-move var(--dur, 2.6s) linear infinite;
+  animation-delay: var(--delay, 0s);
+}
+
+/* Pre-blurred glow: just a radial gradient, no filters */
+.packet-white {
+  background: radial-gradient(circle, #fff 0 2.6px, rgb(255 255 255 / 0.35) 3.4px, transparent 9px);
+}
+.packet-orange {
+  background: radial-gradient(
+    circle,
+    var(--accent) 0 2.6px,
+    color-mix(in srgb, var(--accent) 45%, transparent) 3.4px,
+    transparent 9px
+  );
+}
+
+@keyframes packet-move {
+  0% {
+    offset-distance: 0%;
+    opacity: 0;
+  }
+  12%,
+  88% {
+    opacity: 1;
+  }
+  100% {
+    offset-distance: 100%;
+    opacity: 0;
+  }
+}
+
+/* Paused while the camera moves and while the tab is hidden */
+.is-moving .packet,
+.is-hidden .packet {
+  animation-play-state: paused;
+}
+
+/* ------------------------------------------------------------------
+   6. The tour
+   Desktop (≥ 900px, motion allowed): pinned stage with layers.
+   Otherwise: normal stacked sections.
+   ------------------------------------------------------------------ */
+
+/* --- Stacked layout (mobile / reduced motion) --- */
+.camera-rig,
+.veil,
+.progress-rail {
+  display: none;
+}
+
+.chapter {
+  position: relative;
+  padding-block: 72px;
+}
+
+.chapter-hero {
+  padding-top: 120px;
+}
+
+.mobile-view {
+  display: block;
+}
+
+/* Simple fade-up reveals (IntersectionObserver adds .is-in) */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity 600ms var(--ease-out),
+    transform 600ms var(--ease-out);
+}
+
+.reveal.is-in {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    transform: none;
+    transition: opacity 200ms linear;
+  }
+  .packet,
+  .live-dot::after,
+  .marquee-track {
+    animation: none !important;
+  }
+  .packet {
+    display: none;
+  }
+  .marquee {
+    overflow-x: auto;
+  }
+}
+
+/* --- Pinned tour (desktop) --- */
+@media (min-width: 900px) and (prefers-reduced-motion: no-preference) {
+  .stage {
+    position: relative;
+    height: 100vh;
+    height: 100svh;
+    overflow: hidden;
+    background: radial-gradient(ellipse 60% 55% at 60% 50%, var(--surface), var(--bg) 70%);
+  }
+
+  .camera-rig {
+    display: block;
+    position: absolute;
+    inset: 0;
+    will-change: transform;
+  }
+
+  .camera,
+  .label-camera {
+    position: absolute;
+    left: 0;
+    top: 0;
+    transform-origin: 0 0;
+    will-change: transform;
+  }
+
+  /* --k = screen px per diagram unit at zoom 1 (set by the tour) */
+  .camera {
+    width: calc(740px * var(--k, 1) * 3.4);
+    height: calc(600px * var(--k, 1) * 3.4);
+    --unit: calc(var(--k, 1) * 3.4);
+  }
+
+  .label-camera {
+    width: calc(740px * var(--k, 1));
+    height: calc(600px * var(--k, 1));
+    will-change: transform, opacity;
+  }
+
+  /* hovering the diagram only works in the zoomed-out overview */
+  .stage:not([data-overview]) .camera-rig {
+    pointer-events: none;
+  }
+  .stage:not([data-overview]) .hover-card {
+    display: none;
+  }
+
+  .site-header {
+    position: fixed;
+  }
+
+  .veil {
+    display: block;
+    position: absolute;
+    pointer-events: none;
+    opacity: 0;
+    will-change: opacity;
+  }
+
+  .veil-right {
+    inset: 0 0 0 38%;
+    background: linear-gradient(to left, var(--bg) 40%, color-mix(in srgb, var(--bg) 70%, transparent) 70%, transparent);
+  }
+
+  .veil-top {
+    inset: 0 0 76% 0;
+    background: linear-gradient(to bottom, var(--bg) 35%, transparent);
+  }
+
+  .veil-bottom {
+    inset: 62% 0 0 0;
+    background: linear-gradient(to top, var(--bg) 40%, transparent);
+  }
+
+  .progress-rail {
+    display: flex;
+  }
+
+  .chapter {
+    position: absolute;
+    inset: 0;
+    padding: 0;
+    pointer-events: none;
+  }
+
+  /* only the visible chapter's controls can be clicked */
+  .chapter.is-active .pe {
+    pointer-events: auto;
+  }
+
+  .chapter [data-anim] {
+    will-change: transform, opacity;
+  }
+
+  /* before the timeline takes over, only the hero is visible */
+  .chapter:not(.chapter-hero) [data-anim],
+  .chapter [data-card] {
+    opacity: 0;
+  }
+
+  .mobile-view {
+    display: none;
+  }
+
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  .chapter-work {
+    --card-w: min(760px, 53vw, calc((100svh - 290px) * 1.4));
+  }
+
+  .chapter:not(.is-active) .marquee-track {
+    animation-play-state: paused;
+  }
+}
+
+
+--- END OF FILE: src/app/globals.css ---
+
+
+--- FILE: src/app/icon.svg ---
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="14" fill="#0B0A0F"/><circle cx="32" cy="32" r="11" fill="#FF6B35"/></svg>
+
+
+--- END OF FILE: src/app/icon.svg ---
+
+
+--- FILE: src/app/layout.tsx ---
+import type { Metadata, Viewport } from "next";
+import { ThemeProvider } from "next-themes";
+import "@fontsource-variable/hubot-sans/wdth.css";
+import "@fontsource-variable/mona-sans/index.css";
+import "@fontsource/monaspace-neon/400.css";
+import "@fontsource/monaspace-neon/500.css";
+import "./globals.css";
+import { site } from "@/content/site";
+
+const description = `${site.name} is a ${site.role.toLowerCase()} in ${site.location}, building payment, logistics and developer tools.`;
+
+export const metadata: Metadata = {
+  metadataBase: new URL("https://ahmad.dev"), // TODO: replace with your real domain
+  title: {
+    default: `${site.name} — ${site.role}`,
+    template: `%s · ${site.name}`,
+  },
+  description,
+  openGraph: { title: `${site.name} — ${site.role}`, description, type: "website" },
+  twitter: { card: "summary_large_image" },
+};
+
+export const viewport: Viewport = {
+  themeColor: "#0B0A0F",
+};
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <html lang="en" className="dark" suppressHydrationWarning>
+      <body>
+        <a href="#main" className="skip-link">
+          Skip to content
+        </a>
+        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false} disableTransitionOnChange>
+          {children}
+        </ThemeProvider>
+      </body>
+    </html>
+  );
+}
+
+
+--- END OF FILE: src/app/layout.tsx ---
+
+
+--- FILE: src/app/not-found.tsx ---
+import SiteHeader from "@/components/SiteHeader";
+import Button from "@/components/ui/Button";
+import Dot from "@/components/ui/Dot";
+
+export default function NotFound() {
+  return (
+    <>
+      <SiteHeader />
+      <main id="main" className="container-page flex min-h-svh flex-col items-center justify-center text-center">
+        <p className="eyebrow">404</p>
+        <h1 className="title-chapter mt-5">
+          Page not found
+          <Dot />
+        </h1>
+        <div className="mt-9">
+          <Button href="/" arrow="right">
+            Back home
+          </Button>
+        </div>
+      </main>
+    </>
+  );
+}
+
+
+--- END OF FILE: src/app/not-found.tsx ---
+
+
+--- FILE: src/app/opengraph-image.tsx ---
+import { ImageResponse } from "next/og";
+import { site } from "@/content/site";
+
+// The image shown when the site is shared: ink background, "AHMAD●" and the role.
+export const alt = `${site.name} — ${site.role}`;
+export const size = { width: 1200, height: 630 };
+export const contentType = "image/png";
+
+export default function OpengraphImage() {
+  return new ImageResponse(
+    <div
+      style={{
+        width: "100%",
+        height: "100%",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        padding: "0 96px",
+        background: "radial-gradient(circle at 78% 40%, #15131B 0%, #0B0A0F 60%)",
+        color: "#F6F1EA",
+        fontFamily: "sans-serif",
+      }}
+    >
+      <div style={{ display: "flex", alignItems: "flex-end", fontSize: 150, fontWeight: 800, letterSpacing: -6 }}>
+        {site.wordmark}
+        <div
+          style={{ width: 28, height: 28, borderRadius: 999, background: "#FF6B35", marginLeft: 10, marginBottom: 30 }}
+        />
+      </div>
+      <div style={{ fontSize: 44, color: "#9C94A3", marginTop: 12 }}>{site.role}</div>
+    </div>,
+    size,
+  );
+}
+
+
+--- END OF FILE: src/app/opengraph-image.tsx ---
+
+
+--- FILE: src/app/page.tsx ---
+import SiteHeader from "@/components/SiteHeader";
+import RevealObserver from "@/components/RevealObserver";
+import ProgressRail from "@/components/tour/ProgressRail";
+import Tour from "@/components/tour/Tour";
+
+export default function HomePage() {
+  return (
+    <>
+      <SiteHeader />
+      <main id="main">
+        <Tour />
+      </main>
+      <ProgressRail />
+      <RevealObserver />
+    </>
+  );
+}
+
+
+--- END OF FILE: src/app/page.tsx ---
+
+
+--- FILE: src/app/work/page.tsx ---
+import type { Metadata } from "next";
+import { site } from "@/content/site";
+import SiteHeader from "@/components/SiteHeader";
+import RevealObserver from "@/components/RevealObserver";
+import Dot from "@/components/ui/Dot";
+import ProjectCard from "@/components/ui/ProjectCard";
+
+export const metadata: Metadata = {
+  title: "Selected work",
+  description: "Three selected projects: payments, logistics and open source.",
+};
+
+export default function WorkPage() {
+  return (
+    <>
+      <SiteHeader />
+      <main id="main" className="container-page pt-[clamp(130px,16vw,180px)] pb-24">
+        <p className="eyebrow">02 / Work</p>
+        <h1 className="title-chapter mt-4">
+          Selected work
+          <Dot />
+        </h1>
+        <div className="mt-14 flex max-w-[900px] flex-col gap-8">
+          {site.projects.map((project, i) => (
+            <div key={project.slug} className={i === 0 ? "" : "reveal"}>
+              <ProjectCard project={project} index={i} eager={i === 0} headingLevel={2} />
+            </div>
+          ))}
+        </div>
+      </main>
+      <RevealObserver />
+    </>
+  );
+}
+
+
+--- END OF FILE: src/app/work/page.tsx ---
+
+
+--- FILE: src/app/work/[slug]/page.tsx ---
+import type { Metadata } from "next";
+import { notFound } from "next/navigation";
+import { site } from "@/content/site";
+import SiteHeader from "@/components/SiteHeader";
+import Button from "@/components/ui/Button";
+import Dot from "@/components/ui/Dot";
+import ProjectShowcase from "@/components/ui/ProjectShowcase";
+
+type Props = { params: Promise<{ slug: string }> };
+
+// One static page per project
+export function generateStaticParams() {
+  return site.projects.map((p) => ({ slug: p.slug }));
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { slug } = await params;
+  const project = site.projects.find((p) => p.slug === slug);
+  return project ? { title: project.name, description: project.story } : {};
+}
+
+export default async function CaseStudyPage({ params }: Props) {
+  const { slug } = await params;
+  const index = site.projects.findIndex((p) => p.slug === slug);
+  if (index === -1) notFound();
+
+  const project = site.projects[index];
+  const next = site.projects[(index + 1) % site.projects.length];
+  const facts = [
+    ["Role", project.role],
+    ["Timeline", project.timeline],
+    ["Stack", project.stack.join(", ")],
+  ];
+  const sections = [
+    ["Problem", project.caseStudy.problem],
+    ["Approach", project.caseStudy.approach],
+    ["Outcome", project.caseStudy.outcome],
+  ];
+
+  return (
+    <>
+      <SiteHeader back={{ href: "/work", label: "Back" }} />
+      <main id="main" className="container-page pt-[clamp(130px,16vw,180px)] pb-24">
+        <p className="eyebrow">{String(index + 1).padStart(2, "0")} / Case study</p>
+        <h1 className="title-hero mt-5">
+          {project.name}
+          <Dot />
+        </h1>
+        <p className="mt-5 text-[18px] text-muted">{project.kind}</p>
+        <div className="mt-7 flex flex-wrap gap-3">
+          <Button href={project.live} arrow="external">
+            Visit site
+          </Button>
+          {project.github ? (
+            <Button href={project.github} variant="secondary" arrow="external">
+              GitHub
+            </Button>
+          ) : null}
+        </div>
+
+        <dl className="mt-12 grid border-y border-line sm:grid-cols-3">
+          {facts.map(([label, value]) => (
+            <div
+              key={label}
+              className="border-line py-5 max-sm:border-b max-sm:last:border-b-0 sm:border-l sm:px-6 sm:first:border-l-0 sm:first:pl-0"
+            >
+              <dt className="label text-muted">{label}</dt>
+              <dd className="mt-2 text-[17px] font-medium">{value}</dd>
+            </div>
+          ))}
+        </dl>
+
+        <div className="mt-14">
+          <ProjectShowcase project={project} eager />
+        </div>
+
+        <div className="mt-20 max-w-[62ch]">
+          {sections.map(([title, text]) => (
+            <section key={title} className="mb-14">
+              <h2
+                className="font-display text-[28px] font-extrabold tracking-[-0.02em] uppercase"
+                style={{ fontStretch: "112%" }}
+              >
+                {title}
+                <Dot />
+              </h2>
+              <p className="mt-4 text-[18px] leading-[1.7] text-muted">{text}</p>
+            </section>
+          ))}
+        </div>
+
+        <div className="flex flex-col items-start justify-between gap-6 border-t border-line pt-10 sm:flex-row sm:items-center">
+          <div>
+            <p className="label text-muted">Next project</p>
+            <p className="mt-2 text-[28px] font-semibold tracking-[-0.02em]">{next.name}</p>
+          </div>
+          <Button href={`/work/${next.slug}`} variant="secondary" arrow="right">
+            Next project
+          </Button>
+        </div>
+      </main>
+    </>
+  );
+}
+
+
+--- END OF FILE: src/app/work/[slug]/page.tsx ---
+
+
+--- FILE: src/components/RevealObserver.tsx ---
+"use client";
+
+import { useEffect } from "react";
+
+// Small screens / reduced motion: fades each ".reveal" element up the first time it
+// scrolls into view, using one IntersectionObserver and a CSS transition.
+export default function RevealObserver() {
+  useEffect(() => {
+    const els = document.querySelectorAll(".reveal:not(.is-in)");
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-in");
+            io.unobserve(entry.target);
+          }
+        });
+      },
+      { rootMargin: "0px 0px -8% 0px" },
+    );
+    els.forEach((el) => io.observe(el));
+    return () => io.disconnect();
+  }, []);
+
+  return null;
+}
+
+
+--- END OF FILE: src/components/RevealObserver.tsx ---
+
+
+--- FILE: src/components/SiteHeader.tsx ---
+"use client";
+
+import Link from "next/link";
+import { ArrowLeft } from "lucide-react";
+import { usePathname, useRouter } from "next/navigation";
+import { site } from "@/content/site";
+import { goToChapter } from "@/lib/tour";
+import Button from "@/components/ui/Button";
+import Dot from "@/components/ui/Dot";
+import ThemeToggle from "@/components/ui/ThemeToggle";
+
+// Top bar: wordmark on the left, "Let's talk" + theme toggle on the right.
+// On the home page during the desktop tour it stays fixed (see .site-header in globals.css).
+export default function SiteHeader({ back }: { back?: { href: string; label: string } }) {
+  const pathname = usePathname();
+  const router = useRouter();
+
+  function letsTalk(e: { preventDefault: () => void }) {
+    e.preventDefault();
+    if (pathname === "/") goToChapter("contact");
+    else router.push("/#contact");
+  }
+
+  return (
+    <header className="site-header z-40">
+      <div className="container-page flex items-center justify-between pt-6 sm:pt-7">
+        <div className="flex items-center gap-6">
+          <Link
+            href="/"
+            aria-label={`${site.name}, home`}
+            className="font-display text-[22px] font-extrabold tracking-[0.01em]"
+            style={{ fontStretch: "112%" }}
+          >
+            {site.wordmark}
+            <Dot />
+          </Link>
+          {back ? (
+            <Link href={back.href} className="inline-flex items-center gap-1.5 text-[15px] text-muted hover:text-text">
+              <ArrowLeft size={15} aria-hidden />
+              {back.label}
+            </Link>
+          ) : null}
+        </div>
+        <div className="flex items-center gap-2.5">
+          <Button href="/#contact" onClick={letsTalk} variant="secondary" size="sm" arrow="right">
+            Let&apos;s talk
+          </Button>
+          <ThemeToggle />
+        </div>
+      </div>
+    </header>
+  );
+}
+
+
+--- END OF FILE: src/components/SiteHeader.tsx ---
+
+
+--- FILE: src/components/tour/CameraRig.tsx ---
+"use client";
+
+import {
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+  type CSSProperties,
+  type KeyboardEvent,
+  type ReactNode,
+} from "react";
+import { goToChapter } from "@/lib/tour";
+import { DiagramArt, DiagramLabels } from "./DiagramArt";
+import { MODULES, VIEW_H, VIEW_W, type ModuleId, type ModuleInfo } from "./geometry";
+import Packets from "./Packets";
+
+// The two "cameras" the tour moves around (desktop only):
+// - .camera holds the diagram, drawn 3.4× bigger than needed so it stays sharp when zoomed in
+// - .label-camera holds the labels and hover card at normal size (they only show zoomed out)
+export default function CameraRig() {
+  const [active, setActive] = useState<ModuleId | null>(null);
+  const svgRef = useRef<SVGSVGElement>(null);
+
+  // Hover highlight: toggle classes directly, so the big SVG is not re-rendered by React
+  useEffect(() => {
+    const svg = svgRef.current;
+    if (!svg) return;
+    if (active) svg.setAttribute("data-active", active);
+    else svg.removeAttribute("data-active");
+    svg.querySelectorAll<SVGGElement>("[data-mod]").forEach((g) => {
+      g.classList.toggle("is-active", g.dataset.mod === active);
+    });
+  }, [active]);
+
+  // Wraps every module in a focusable button with hover + click handlers (stable, so the art renders once)
+  const wrapModule = useCallback(
+    (m: ModuleInfo, shape: ReactNode) => (
+      <g
+        data-mod={m.id}
+        className="mod cursor-pointer outline-none"
+        role="button"
+        tabIndex={0}
+        aria-label={`${m.label.toLowerCase()}: ${m.sentence} Opens the ${m.chapter} chapter.`}
+        onMouseEnter={() => setActive(m.id)}
+        onMouseLeave={() => setActive(null)}
+        onFocus={() => setActive(m.id)}
+        onBlur={() => setActive(null)}
+        onClick={() => goToChapter(m.chapter)}
+        onKeyDown={(e: KeyboardEvent) => {
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            goToChapter(m.chapter);
+          }
+        }}
+      >
+        <g className="mod-lift">{shape}</g>
+      </g>
+    ),
+    [],
+  );
+
+  const info = MODULES.find((m) => m.id === active);
+
+  return (
+    <div className="camera-rig" aria-label="System diagram: a map of this site" role="group">
+      <div className="camera">
+        <svg
+          ref={svgRef}
+          viewBox={`0 0 ${VIEW_W} ${VIEW_H}`}
+          className="diagram absolute inset-0 h-full w-full overflow-visible"
+        >
+          <DiagramArt wrapModule={wrapModule} />
+        </svg>
+        <Packets />
+      </div>
+
+      <div className="label-camera pointer-events-none">
+        <svg
+          viewBox={`0 0 ${VIEW_W} ${VIEW_H}`}
+          className="absolute inset-0 h-full w-full overflow-visible"
+          aria-hidden
+        >
+          <DiagramLabels />
+        </svg>
+        {info ? (
+          <div
+            className="hover-card absolute w-[230px] rounded-[14px] border border-line bg-surface px-4 py-3.5 shadow-[0_16px_40px_-16px_rgb(0_0_0_/_0.6)]"
+            style={
+              {
+                left: `calc(var(--k) * ${info.cardAt[0]}px)`,
+                top: `calc(var(--k) * ${info.cardAt[1]}px)`,
+              } as CSSProperties
+            }
+          >
+            <p className="font-display text-[12px] font-bold tracking-[0.12em]">{info.label}</p>
+            <p className="mt-1.5 text-[14px] leading-[1.45] text-muted">{info.sentence}</p>
+            <p className="mt-2 text-[13px] font-semibold text-accent">Click to open →</p>
+          </div>
+        ) : null}
+      </div>
+    </div>
+  );
+}
+
+
+--- END OF FILE: src/components/tour/CameraRig.tsx ---
+
+
+--- FILE: src/components/tour/Chapters.tsx ---
+"use client";
+
+import { Check, Copy } from "lucide-react";
+import { useState, type CSSProperties, type ReactNode } from "react";
+import { site } from "@/content/site";
+import { techIcons } from "@/lib/techIcons";
+import { goToChapter } from "@/lib/tour";
+import Button from "@/components/ui/Button";
+import Dot from "@/components/ui/Dot";
+import ProjectCard from "@/components/ui/ProjectCard";
+import { MOBILE_CROPS } from "./geometry";
+import { StaticDiagram } from "./DiagramArt";
+
+// Every element with data-anim is faded in/out by the tour timeline (desktop)
+// or revealed once when it scrolls into view (small screens, class "reveal").
+
+// Wrapper for one chapter. On desktop it is a full-screen layer inside the pinned stage;
+// on small screens it is a normal section.
+function Chapter({
+  id,
+  children,
+  className = "",
+  label,
+}: {
+  id: string;
+  children: ReactNode;
+  className?: string;
+  label: string;
+}) {
+  return (
+    <section id={id} data-chapter={id} aria-label={label} className={`chapter chapter-${id} ${className}`}>
+      {children}
+    </section>
+  );
+}
+
+// The small cropped view of a module shown above a chapter on small screens
+function MobileView({ crop }: { crop: [number, number, number, number] }) {
+  return (
+    <div className="mobile-view mx-auto mb-8 w-[min(100%,420px)]">
+      <StaticDiagram crop={crop} />
+    </div>
+  );
+}
+
+/* ------------------------------ 1. Hero ------------------------------ */
+export function HeroChapter() {
+  const { hero } = site;
+  return (
+    <Chapter id="hero" label="Introduction">
+      <div className="container-page flex h-full flex-col justify-center">
+        <div className="max-w-[640px] pe">
+          <p data-anim="" className="reveal eyebrow">
+            {hero.eyebrow}
+          </p>
+          <h1 data-anim="" className="reveal title-hero mt-6">
+            {hero.lines.map((line) => (
+              <span key={line} className="block">
+                {line}
+              </span>
+            ))}
+            <span className="block text-accent">
+              {hero.accent}
+              <Dot />
+            </span>
+          </h1>
+          <p data-anim="" className="reveal body-text mt-7">
+            {hero.text}
+          </p>
+          <div data-anim="" className="reveal mt-9 flex flex-wrap gap-3">
+            <Button arrow="down" href="#about" onClick={jump("about")}>
+              Start the tour
+            </Button>
+            <Button variant="secondary" href="#contact" onClick={jump("contact")}>
+              Send a request
+            </Button>
+          </div>
+        </div>
+        <div className="mobile-view mt-12 w-full max-w-[560px] self-center">
+          <StaticDiagram labels />
+        </div>
+      </div>
+    </Chapter>
+  );
+}
+
+// Click handler that jumps to a chapter instead of following the #hash
+function jump(id: Parameters<typeof goToChapter>[0]) {
+  return (e: { preventDefault: () => void }) => {
+    e.preventDefault();
+    goToChapter(id);
+  };
+}
+
+/* ------------------------------ 2. About ------------------------------ */
+export function AboutChapter() {
+  const { about } = site;
+  return (
+    <Chapter id="about" label="About">
+      <div className="container-page flex h-full items-center justify-end">
+        <div className="w-full tour:w-[min(560px,44vw)] pe">
+          <MobileView crop={MOBILE_CROPS.about} />
+          <p data-anim="" className="reveal eyebrow">
+            01 / About
+          </p>
+          <h2 data-anim="" className="reveal title-chapter mt-5">
+            {about.title}
+            <Dot />
+          </h2>
+          <p data-anim="" className="reveal body-text mt-6">
+            {about.text}
+          </p>
+          <dl data-anim="" className="reveal mt-8 grid grid-cols-2 gap-3">
+            {about.facts.map(([label, value]) => (
+              <div key={label} className="rounded-[14px] border border-line bg-surface/90 px-4 py-3.5">
+                <dt className="label text-muted">{label}</dt>
+                <dd className="mt-1 text-[16px] font-medium">{value}</dd>
+              </div>
+            ))}
+          </dl>
+        </div>
+      </div>
+    </Chapter>
+  );
+}
+
+/* ------------------------------ 3. Work ------------------------------ */
+export function WorkChapter() {
+  const count = site.projects.length;
+  return (
+    <Chapter id="work" label="Selected work">
+      <div className="container-page relative h-full">
+        <div className="pt-0 tour:pt-[clamp(76px,10.5vh,100px)]">
+          <MobileView crop={MOBILE_CROPS.work} />
+          <p data-anim="" className="reveal eyebrow">
+            02 / Work
+          </p>
+          <h2 data-anim="" className="reveal title-chapter mt-4">
+            Selected work
+            <Dot />
+          </h2>
+        </div>
+
+        {/* Desktop: the cards sit on top of each other and the timeline slides between them.
+            Small screens: they simply stack. */}
+        <div className="work-cards mt-10 flex flex-col gap-6 tour:absolute tour:top-[24%] tour:right-[var(--page-pad)] tour:mt-0 tour:block tour:w-[var(--card-w)]">
+          {site.projects.map((project, i) => (
+            <div key={project.slug} data-card={i} className="reveal pe tour:absolute tour:inset-x-0 tour:top-0">
+              <ProjectCard project={project} index={i} cropShots eager={i === 0} />
+            </div>
+          ))}
+        </div>
+
+        {/* "● ○ ○" indicator under the cards (desktop only) */}
+        <div
+          data-anim=""
+          aria-hidden
+          className="reveal work-indicator absolute right-[var(--page-pad)] bottom-[5.5%] hidden items-center gap-4 tour:flex"
+        >
+          <span className="flex gap-1.5">
+            {Array.from({ length: count }, (_, i) => (
+              <span key={i} className="relative block size-[7px] rounded-full border border-muted">
+                <span
+                  data-indicator={i}
+                  className="absolute -inset-px rounded-full bg-text"
+                  style={{ opacity: i === 0 ? 1 : 0 }}
+                />
+              </span>
+            ))}
+          </span>
+          <span className="font-mono text-[13px] text-muted">keep scrolling: next project slides in</span>
+        </div>
+      </div>
+    </Chapter>
+  );
+}
+
+/* ------------------------------ 4. Experience ------------------------------ */
+export function ExperienceChapter() {
+  return (
+    <Chapter id="experience" label="Experience">
+      <div className="container-page flex h-full items-center justify-end">
+        <div className="w-full tour:w-[min(560px,44vw)] pe">
+          <MobileView crop={MOBILE_CROPS.experience} />
+          <p data-anim="" className="reveal eyebrow">
+            03 / Experience
+          </p>
+          {/* the frame breaks this title as "WHERE I'VE / BEEN", so no balancing here */}
+          <h2 data-anim="" className="reveal title-chapter mt-5 [text-wrap:wrap]">
+            Where I&apos;ve been
+            <Dot />
+          </h2>
+          <ol data-anim="" className="reveal mt-8 border-t border-line">
+            {site.experience.map((job) => (
+              <li key={job.role} className="flex items-center gap-6 border-b border-line py-5">
+                <span className="w-[100px] shrink-0 font-mono text-[12.5px] text-muted">{job.years}</span>
+                <span className="flex-1">
+                  <span className="block text-[19px] leading-snug font-semibold">{job.role}</span>
+                  <span className="block text-[16px] text-muted">{job.place}</span>
+                </span>
+                {job.current ? <span className="live-dot mr-2" role="img" aria-label="Current job" /> : null}
+              </li>
+            ))}
+          </ol>
+        </div>
+      </div>
+    </Chapter>
+  );
+}
+
+/* ------------------------------ 5. Tools ------------------------------ */
+export function ToolsChapter() {
+  const items = site.tools.filter((name) => techIcons[name]);
+  return (
+    <Chapter id="tools" label="Tools">
+      <div className="flex h-full flex-col">
+        <div className="container-page text-center tour:pt-[clamp(70px,9vh,90px)]">
+          <MobileView crop={MOBILE_CROPS.tools} />
+          <p data-anim="" className="reveal eyebrow">
+            04 / Tools
+          </p>
+          <h2 data-anim="" className="reveal title-chapter mt-4">
+            Tools I use every week
+            <Dot />
+          </h2>
+        </div>
+
+        <div data-anim="" className="reveal mt-12 tour:mt-auto tour:mb-[clamp(56px,10vh,110px)]">
+          <ul className="sr-only">
+            {items.map((name) => (
+              <li key={name}>{name}</li>
+            ))}
+          </ul>
+          <div className="marquee pe mx-auto max-w-[1100px]" aria-hidden>
+            <div className="marquee-track py-2">
+              {[0, 1].map((copy) => (
+                <div key={copy} className="flex shrink-0">
+                  {items.map((name) => {
+                    const { Icon, color } = techIcons[name];
+                    return (
+                      <div
+                        key={name}
+                        className="tool-item flex w-[114px] shrink-0 flex-col items-center gap-3"
+                        style={{ "--brand": color } as CSSProperties}
+                      >
+                        <div className="tool-tile flex size-[68px] items-center justify-center rounded-[18px] border border-line bg-surface">
+                          <Icon size={30} />
+                        </div>
+                        <span className="text-[14px] text-muted">{name}</span>
+                      </div>
+                    );
+                  })}
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </Chapter>
+  );
+}
+
+/* ------------------------------ 6. Contact ------------------------------ */
+export function ContactChapter() {
+  const { contact } = site;
+  const [copied, setCopied] = useState(false);
+
+  async function copyEmail() {
+    try {
+      await navigator.clipboard.writeText(site.email);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch {
+      // clipboard blocked: nothing to do, the mailto button still works
+    }
+  }
+
+  return (
+    <Chapter id="contact" label="Contact">
+      <div className="container-page flex h-full flex-col justify-center">
+        <div className="max-w-[640px] pe">
+          <p data-anim="" className="reveal eyebrow">
+            05 / Contact
+          </p>
+          <h2 data-anim="" className="reveal title-hero title-contact mt-6">
+            {contact.lines.map((line) => (
+              <span key={line} className="block">
+                {line}
+              </span>
+            ))}
+            <span className="block text-accent">
+              {contact.accent}
+              <Dot />
+            </span>
+          </h2>
+          <p data-anim="" className="reveal body-text mt-7">
+            {contact.text}
+          </p>
+          <div data-anim="" className="reveal mt-9 flex flex-wrap items-center gap-3">
+            <span className="inline-flex items-center gap-2">
+              <Button href={`mailto:${site.email}`} arrow="right">
+                {site.email}
+              </Button>
+              <button
+                type="button"
+                onClick={copyEmail}
+                aria-label="Copy email address"
+                className="inline-flex size-[50px] items-center justify-center rounded-full border border-line text-muted transition-colors duration-150 hover:text-text"
+              >
+                {copied ? <Check size={17} aria-hidden /> : <Copy size={17} aria-hidden />}
+              </button>
+            </span>
+            <Button href={site.linkedin} variant="secondary" arrow="external">
+              LinkedIn
+            </Button>
+            <Button href={site.cv} variant="secondary" arrow="down">
+              CV
+            </Button>
+          </div>
+          <p role="status" aria-live="polite" className="mt-3 h-5 font-mono text-[12px] text-accent">
+            {copied ? "Copied ✓" : ""}
+          </p>
+        </div>
+        <div className="mobile-view mt-10 w-full max-w-[560px] self-center">
+          <StaticDiagram labels />
+        </div>
+      </div>
+      <p
+        data-anim=""
+        className="reveal container-page font-mono text-[12px] text-muted tour:absolute tour:inset-x-0 tour:bottom-6"
+      >
+        © 2026 {site.name} · Designed and built by me
+      </p>
+    </Chapter>
+  );
+}
+
+
+--- END OF FILE: src/components/tour/Chapters.tsx ---
+
+
+--- FILE: src/components/tour/DiagramArt.tsx ---
+// The static drawing of the isometric system (no state, no animation).
+// It is rendered once and then only moved around by the camera.
+import { memo, type ReactNode } from "react";
+import { Briefcase, Clock, Code, LayoutGrid, Mail, User } from "lucide-react";
+import { MODULES, VIEW_H, VIEW_W, type ModuleId, type ModuleInfo } from "./geometry";
+import {
+  BASE_L,
+  BASE_R,
+  BASE_TOP,
+  Glow,
+  IsoBox,
+  IsoCyl,
+  IsoHex,
+  ORANGE,
+  ORANGE_L,
+  ORANGE_R,
+  SIDE_R,
+  Shadow,
+  TopIcon,
+  frontArc,
+} from "./iso";
+
+const ICON = "var(--mod-icon)";
+
+// Gradients shared by every copy of the diagram on the page.
+// This SVG is never display:none, so the gradients always work.
+export function DiagramDefs() {
+  return (
+    <svg aria-hidden width="0" height="0" className="pointer-events-none absolute">
+      <defs>
+        <linearGradient id="side-grad" x1="0" x2="1" y1="0" y2="0">
+          <stop offset="0" style={{ stopColor: "var(--mod-side-l)" }} />
+          <stop offset="1" style={{ stopColor: "var(--mod-side-r)" }} />
+        </linearGradient>
+        <linearGradient id="base-grad" x1="0" x2="1" y1="0" y2="0">
+          <stop offset="0" style={{ stopColor: "var(--mod-base-l)" }} />
+          <stop offset="1" style={{ stopColor: "var(--mod-base-r)" }} />
+        </linearGradient>
+        <radialGradient id="soft-shadow">
+          <stop offset="0" style={{ stopColor: "var(--mod-shadow)", stopOpacity: 0.55 }} />
+          <stop offset="1" style={{ stopColor: "var(--mod-shadow)", stopOpacity: 0 }} />
+        </radialGradient>
+        <radialGradient id="glow-orange">
+          <stop offset="0" style={{ stopColor: "var(--accent)", stopOpacity: 0.55 }} />
+          <stop offset="1" style={{ stopColor: "var(--accent)", stopOpacity: 0 }} />
+        </radialGradient>
+        <radialGradient id="glow-white">
+          <stop offset="0" stopColor="#ffffff" stopOpacity="0.5" />
+          <stop offset="1" stopColor="#ffffff" stopOpacity="0" />
+        </radialGradient>
+        <pattern id="dot-grid" width="24" height="24" patternUnits="userSpaceOnUse">
+          <circle cx="2" cy="2" r="1.1" style={{ fill: "var(--grid-dot)" }} />
+        </pattern>
+        <radialGradient id="grid-fade" cx="0.5" cy="0.5" r="0.5">
+          <stop offset="0.45" stopColor="#fff" stopOpacity="1" />
+          <stop offset="1" stopColor="#fff" stopOpacity="0" />
+        </radialGradient>
+        <mask id="grid-mask" maskContentUnits="objectBoundingBox">
+          <rect width="1" height="1" fill="url(#grid-fade)" />
+        </mask>
+      </defs>
+    </svg>
+  );
+}
+
+// One module's shapes. `hot` is an extra glow that fades in on hover.
+function ModuleShape({ id }: { id: ModuleId }) {
+  switch (id) {
+    case "contact":
+      return (
+        <>
+          <Shadow cx={137} cy={204} rx={70} ry={34} />
+          <IsoBox cx={137} cy={200} a={33} h={10} top={BASE_TOP} left={BASE_L} right={BASE_R} />
+          <IsoBox cx={137} cy={190} a={22} h={44} />
+          <TopIcon x={137} y={146} icon={Mail} color="var(--text)" size={22} />
+          <g className="hot">
+            <Glow cx={137} cy={146} r={34} white />
+          </g>
+        </>
+      );
+    case "about":
+      return (
+        <>
+          <Shadow cx={196} cy={296} rx={78} ry={40} />
+          <IsoCyl cx={196} cy={292} rx={62} h={14} top={BASE_TOP} side="url(#base-grad)" />
+          <IsoCyl cx={196} cy={278} rx={50} h={32} />
+          <ellipse cx={196} cy={246} rx={37} ry={21} style={{ fill: SIDE_R, stroke: ORANGE, strokeWidth: 5 }} />
+          <TopIcon x={196} y={246} icon={User} color={ORANGE} size={20} />
+          <g className="hot">
+            <Glow cx={196} cy={246} r={56} />
+          </g>
+        </>
+      );
+    case "work": {
+      const cubes = [
+        { x: 367, y: 304, orange: true }, // back
+        { x: 308, y: 338 }, // left
+        { x: 426, y: 338 }, // right
+        { x: 367, y: 372 }, // front
+      ];
+      return (
+        <>
+          <Shadow cx={367} cy={360} rx={128} ry={66} />
+          <IsoBox cx={367} cy={352} a={63} h={14} top={BASE_TOP} left={BASE_L} right={BASE_R} round={14} />
+          {cubes.map((c, i) => (
+            <g key={i}>
+              <IsoBox
+                cx={c.x}
+                cy={c.y}
+                a={24}
+                h={36}
+                top={c.orange ? ORANGE : undefined}
+                left={c.orange ? ORANGE_L : undefined}
+                right={c.orange ? ORANGE_R : undefined}
+              />
+              <TopIcon
+                x={c.x}
+                y={c.y - 36}
+                icon={LayoutGrid}
+                color={c.orange ? "var(--on-accent)" : ICON}
+                size={18}
+                strokeWidth={2}
+              />
+            </g>
+          ))}
+          <g className="hot">
+            <Glow cx={367} cy={268} r={60} />
+          </g>
+        </>
+      );
+    }
+    case "now": {
+      const p1: [number, number] = [500, 192];
+      const p2: [number, number] = [584, 240];
+      const dots = [0.18, 0.4, 0.62, 0.84].map((t) => [p1[0] + (p2[0] - p1[0]) * t, p1[1] + (p2[1] - p1[1]) * t - 2]);
+      return (
+        <>
+          <Shadow cx={560} cy={262} rx={86} ry={36} />
+          {/* two small feet */}
+          <IsoBox cx={516} cy={238} a={7} h={26} round={4} />
+          <IsoBox cx={566} cy={266} a={7} h={26} round={4} />
+          {/* capsule: dark underside + lighter top + a slot with orange dots */}
+          <line
+            x1={p1[0]}
+            y1={p1[1] + 14}
+            x2={p2[0]}
+            y2={p2[1] + 14}
+            strokeWidth={40}
+            strokeLinecap="round"
+            style={{ stroke: SIDE_R }}
+          />
+          <line
+            x1={p1[0]}
+            y1={p1[1]}
+            x2={p2[0]}
+            y2={p2[1]}
+            strokeWidth={40}
+            strokeLinecap="round"
+            style={{ stroke: "var(--mod-top)" }}
+          />
+          <line
+            x1={p1[0] + 4}
+            y1={p1[1] + 1}
+            x2={p2[0] - 8}
+            y2={p2[1] - 5}
+            strokeWidth={14}
+            strokeLinecap="round"
+            style={{ stroke: SIDE_R }}
+          />
+          {dots.map(([x, y], i) => (
+            <g key={i}>
+              <Glow cx={x} cy={y} r={10} />
+              <circle cx={x} cy={y} r={3.4} style={{ fill: ORANGE }} />
+            </g>
+          ))}
+          {/* round end cap with a clock */}
+          <IsoCyl cx={606} cy={276} rx={28} h={36} />
+          <TopIcon x={606} y={240} icon={Clock} color={ORANGE} size={18} />
+          <g className="hot">
+            <Glow cx={545} cy={214} r={60} />
+          </g>
+        </>
+      );
+    }
+    case "experience":
+      return (
+        <>
+          <Shadow cx={620} cy={410} rx={86} ry={44} />
+          <IsoCyl cx={620} cy={406} rx={68} h={14} top={BASE_TOP} side="url(#base-grad)" />
+          <IsoCyl cx={620} cy={392} rx={56} h={26} />
+          <IsoCyl cx={620} cy={366} rx={56} h={26} />
+          <IsoCyl cx={620} cy={340} rx={56} h={26} />
+          {/* glowing orange seams between the layers */}
+          <path
+            d={frontArc(620, 366, 56)}
+            fill="none"
+            style={{ stroke: "var(--accent)" }}
+            strokeWidth={6}
+            strokeOpacity={0.25}
+          />
+          <path
+            d={frontArc(620, 340, 56)}
+            fill="none"
+            style={{ stroke: "var(--accent)" }}
+            strokeWidth={6}
+            strokeOpacity={0.25}
+          />
+          <path d={frontArc(620, 366, 56)} fill="none" style={{ stroke: ORANGE }} strokeWidth={2.4} />
+          <path d={frontArc(620, 340, 56)} fill="none" style={{ stroke: ORANGE }} strokeWidth={2.4} />
+          <TopIcon x={620} y={314} icon={Briefcase} color={ORANGE} size={22} />
+          <g className="hot">
+            <Glow cx={620} cy={352} r={70} />
+          </g>
+        </>
+      );
+    case "skills":
+      return (
+        <>
+          <Shadow cx={402} cy={506} rx={70} ry={34} />
+          <IsoHex cx={402} cy={502} r={46} h={10} top={BASE_TOP} left={BASE_L} right={BASE_R} />
+          <IsoHex cx={402} cy={490} r={44} h={10} />
+          <IsoHex cx={402} cy={478} r={44} h={16} top={ORANGE} left={ORANGE_L} right={ORANGE_R} />
+          <TopIcon x={402} y={462} icon={Code} color="var(--on-accent)" size={22} strokeWidth={2.2} />
+          <g className="hot">
+            <Glow cx={402} cy={462} r={64} />
+          </g>
+        </>
+      );
+  }
+}
+
+// Back-to-front order so nearer modules cover farther ones
+const DRAW_ORDER: ModuleId[] = ["contact", "now", "about", "work", "experience", "skills"];
+
+type ArtProps = {
+  // wraps each module, so the interactive version can add buttons and hover handlers
+  wrapModule?: (m: ModuleInfo, shape: ReactNode) => ReactNode;
+};
+
+function DiagramArtInner({ wrapModule }: ArtProps) {
+  return (
+    <g>
+      {/* faint dot grid that fades out at the edges */}
+      <rect x={-200} y={-150} width={VIEW_W + 400} height={VIEW_H + 300} fill="url(#dot-grid)" mask="url(#grid-mask)" />
+      {/* cables */}
+      <g style={{ stroke: "var(--cable)" }} strokeWidth={1.4} strokeLinecap="round">
+        <line x1={150} y1={212} x2={172} y2={232} />
+        <line x1={244} y1={296} x2={284} y2={320} />
+        <line x1={462} y1={312} x2={524} y2={262} />
+        <line x1={474} y1={378} x2={552} y2={378} />
+        <line x1={378} y1={414} x2={388} y2={440} />
+      </g>
+      {DRAW_ORDER.map((id) => {
+        const m = MODULES.find((mod) => mod.id === id)!;
+        const shape = <ModuleShape id={id} />;
+        return <g key={id}>{wrapModule ? wrapModule(m, shape) : shape}</g>;
+      })}
+    </g>
+  );
+}
+
+export const DiagramArt = memo(DiagramArtInner);
+
+// Labels: a small dot, the module name, a sub-label and a thin leader line.
+export function DiagramLabels() {
+  return (
+    <g>
+      {MODULES.map((m) => {
+        const [x, y] = m.labelAt;
+        const nameWidth = m.label.length * 10.4 + 6; // close enough for Hubot Sans at 12px
+        return (
+          <g key={m.id}>
+            <line
+              x1={m.leader[0]}
+              y1={m.leader[1]}
+              x2={m.leader[2]}
+              y2={m.leader[3]}
+              style={{ stroke: "var(--cable)" }}
+              strokeWidth={1}
+            />
+            <circle
+              cx={x - nameWidth / 2 - 8}
+              cy={y - 4}
+              r={3}
+              style={{ fill: m.whiteDot ? "var(--text)" : "var(--accent)" }}
+            />
+            <text x={x} y={y} textAnchor="middle" className="diagram-label">
+              {m.label}
+            </text>
+            <text x={x} y={y + 16} textAnchor="middle" className="diagram-sublabel">
+              {m.sub}
+            </text>
+          </g>
+        );
+      })}
+    </g>
+  );
+}
+
+// A static, non-interactive copy of the diagram (used on small screens).
+// `crop` picks the part to show: [x, y, width, height] in diagram units.
+export function StaticDiagram({
+  crop,
+  labels = false,
+  className = "",
+}: {
+  crop?: [number, number, number, number];
+  labels?: boolean;
+  className?: string;
+}) {
+  const viewBox = crop ? crop.join(" ") : `40 50 ${VIEW_W - 40} ${VIEW_H - 30}`;
+  return (
+    <svg
+      viewBox={viewBox}
+      className={`block h-auto w-full ${crop ? "overflow-hidden" : "overflow-visible"} ${className}`}
+      aria-hidden
+    >
+      <DiagramArt />
+      {labels ? <DiagramLabels /> : null}
+    </svg>
+  );
+}
+
+
+--- END OF FILE: src/components/tour/DiagramArt.tsx ---
+
+
+--- FILE: src/components/tour/geometry.ts ---
+// Where everything sits in the system diagram.
+// The diagram is drawn in a 740 × 600 coordinate space ("diagram units").
+import type { ChapterId } from "@/lib/tour";
+
+export const VIEW_W = 740;
+export const VIEW_H = 600;
+
+export type ModuleId = "contact" | "about" | "work" | "now" | "experience" | "skills";
+type Point = [number, number];
+
+export type ModuleInfo = {
+  id: ModuleId;
+  label: string;
+  sub: string;
+  sentence: string; // shown in the hover card
+  chapter: ChapterId; // clicking the module jumps here
+  center: Point; // the camera zooms to this point
+  labelAt: Point; // centre of the label (name baseline)
+  leader: [number, number, number, number]; // thin line from the label to the module
+  cardAt: Point; // top-left corner of the hover card
+  whiteDot?: boolean;
+};
+
+export const MODULES: ModuleInfo[] = [
+  {
+    id: "contact",
+    label: "CONTACT",
+    sub: "Say hello",
+    sentence: "Email me. I reply within a day.",
+    chapter: "contact",
+    center: [137, 168],
+    labelAt: [137, 84],
+    leader: [137, 106, 137, 120],
+    cardAt: [190, 60],
+    whiteDot: true,
+  },
+  {
+    id: "about",
+    label: "ABOUT",
+    sub: "Who I am",
+    sentence: "A bit about me and how I work.",
+    chapter: "about",
+    center: [196, 262],
+    labelAt: [196, 178],
+    leader: [196, 200, 196, 222],
+    cardAt: [256, 160],
+  },
+  {
+    id: "work",
+    label: "WORK",
+    sub: "Selected projects",
+    sentence: "3 selected projects.",
+    chapter: "work",
+    center: [367, 330],
+    labelAt: [367, 181],
+    leader: [367, 203, 367, 250],
+    cardAt: [446, 236],
+  },
+  {
+    id: "now",
+    label: "NOW",
+    sub: "What I'm building",
+    sentence: "What I'm building and learning.",
+    chapter: "about",
+    center: [560, 232],
+    labelAt: [552, 146],
+    leader: [552, 168, 552, 196],
+    cardAt: [380, 60],
+  },
+  {
+    id: "experience",
+    label: "EXPERIENCE",
+    sub: "Where I've worked",
+    sentence: "3 roles since 2023.",
+    chapter: "experience",
+    center: [620, 356],
+    labelAt: [620, 484],
+    leader: [620, 446, 620, 466],
+    cardAt: [450, 196],
+  },
+  {
+    id: "skills",
+    label: "SKILLS",
+    sub: "Tools I use",
+    sentence: "The tools I use every week.",
+    chapter: "tools",
+    center: [402, 476],
+    labelAt: [402, 568],
+    leader: [402, 528, 402, 550],
+    cardAt: [462, 470],
+  },
+];
+
+// Centre of the whole drawing (used by the overview chapters)
+export const OVERVIEW_CENTER: Point = [388, 330];
+
+// Thin cables between modules. Packets travel along them.
+export type Cable = { from: Point; to: Point };
+export const CABLES: Cable[] = [
+  { from: [150, 212], to: [172, 232] }, // contact → about
+  { from: [244, 296], to: [284, 320] }, // about → work
+  { from: [462, 312], to: [524, 262] }, // work → now
+  { from: [474, 378], to: [552, 378] }, // work → experience
+  { from: [378, 414], to: [388, 440] }, // work → skills
+];
+
+// The part of the diagram shown above each chapter on small screens: [x, y, width, height]
+export const MOBILE_CROPS: Record<"about" | "work" | "experience" | "tools", [number, number, number, number]> = {
+  about: [96, 110, 220, 230],
+  work: [250, 230, 240, 200],
+  experience: [520, 260, 200, 190],
+  tools: [320, 410, 165, 125],
+};
+
+
+--- END OF FILE: src/components/tour/geometry.ts ---
+
+
+--- FILE: src/components/tour/iso.tsx ---
+// Tiny helpers that draw "soft" isometric shapes in SVG.
+// Every shape is positioned by the centre of its footprint on the ground (cx, cy).
+// Corners are softened by stroking each face with its own colour and round joins.
+import type { LucideIcon } from "lucide-react";
+
+type Pt = [number, number];
+const K = 1.732; // an isometric square is √3 times wider than it is tall
+export const RY = 0.577; // an isometric circle is 0.577 times as tall as it is wide
+
+const pts = (list: Pt[]) => list.map(([x, y]) => `${x.toFixed(1)},${y.toFixed(1)}`).join(" ");
+
+// Fill + same-colour stroke = rounded corners
+const face = (color: string, round: number) => ({
+  fill: color,
+  stroke: color,
+  strokeWidth: round,
+  strokeLinejoin: "round" as const,
+});
+
+export const TOP = "var(--mod-top)";
+export const SIDE_L = "var(--mod-side-l)";
+export const SIDE_R = "var(--mod-side-r)";
+export const BASE_TOP = "var(--mod-base-top)";
+export const BASE_L = "var(--mod-base-l)";
+export const BASE_R = "var(--mod-base-r)";
+export const ORANGE = "var(--accent)";
+export const ORANGE_L = "var(--accent-side-1)";
+export const ORANGE_R = "var(--accent-side-2)";
+
+/* ---------------- Soft shadow (pre-blurred: a radial gradient, no filter) ---------------- */
+export function Shadow({ cx, cy, rx, ry }: { cx: number; cy: number; rx: number; ry: number }) {
+  return <ellipse cx={cx + rx * 0.08} cy={cy + ry * 0.25} rx={rx} ry={ry} fill="url(#soft-shadow)" />;
+}
+
+/* ---------------- Box (rounded cube / slab) ---------------- */
+export function topRhombus(cx: number, cy: number, a: number) {
+  return pts([
+    [cx, cy - a],
+    [cx + K * a, cy],
+    [cx, cy + a],
+    [cx - K * a, cy],
+  ]);
+}
+
+type BoxProps = {
+  cx: number;
+  cy: number;
+  a: number; // half size of the square footprint
+  h: number; // height
+  top?: string;
+  left?: string;
+  right?: string;
+  round?: number;
+};
+
+export function IsoBox({ cx, cy, a, h, top = TOP, left = SIDE_L, right = SIDE_R, round = 10 }: BoxProps) {
+  const W: Pt = [cx - K * a, cy];
+  const S: Pt = [cx, cy + a];
+  const E: Pt = [cx + K * a, cy];
+  return (
+    <g>
+      <polygon points={pts([W, S, [S[0], S[1] - h], [W[0], W[1] - h]])} style={face(left, round)} />
+      <polygon points={pts([S, E, [E[0], E[1] - h], [S[0], S[1] - h]])} style={face(right, round)} />
+      <polygon points={topRhombus(cx, cy - h, a)} style={face(top, round)} />
+    </g>
+  );
+}
+
+/* ---------------- Cylinder (puck / disc) ---------------- */
+type CylProps = { cx: number; cy: number; rx: number; h: number; top?: string; side?: string };
+
+export function IsoCyl({ cx, cy, rx, h, top = TOP, side = "url(#side-grad)" }: CylProps) {
+  const ry = rx * RY;
+  return (
+    <g>
+      <path
+        d={`M${cx - rx},${cy - h} L${cx - rx},${cy} A${rx},${ry} 0 0 0 ${cx + rx},${cy} L${cx + rx},${cy - h} Z`}
+        style={{ fill: side }}
+      />
+      <ellipse cx={cx} cy={cy - h} rx={rx} ry={ry} style={{ fill: top }} />
+    </g>
+  );
+}
+
+// The front half of an ellipse, used for the glowing seams on stacked cylinders
+export function frontArc(cx: number, cy: number, rx: number) {
+  return `M${cx - rx},${cy} A${rx},${rx * RY} 0 0 0 ${cx + rx},${cy}`;
+}
+
+/* ---------------- Hexagon plate ---------------- */
+type HexProps = { cx: number; cy: number; r: number; h: number; top?: string; left?: string; right?: string };
+
+export function hexPoints(cx: number, cy: number, r: number): Pt[] {
+  // a regular hexagon on the ground, projected to isometric screen space
+  return Array.from({ length: 6 }, (_, i) => {
+    const t = ((i * 60 + 15) * Math.PI) / 180;
+    const x = r * Math.cos(t);
+    const y = r * Math.sin(t);
+    return [cx + (x - y) * 0.866, cy + (x + y) * 0.5] as Pt;
+  });
+}
+
+export function IsoHex({ cx, cy, r, h, top = TOP, left = SIDE_L, right = SIDE_R }: HexProps) {
+  const base = hexPoints(cx, cy, r);
+  const sides = base.map((p, i) => {
+    const q = base[(i + 1) % 6];
+    if ((p[1] + q[1]) / 2 <= cy) return null; // back sides are hidden
+    const color = (p[0] + q[0]) / 2 < cx ? left : right;
+    return <polygon key={i} points={pts([p, q, [q[0], q[1] - h], [p[0], p[1] - h]])} style={face(color, 6)} />;
+  });
+  return (
+    <g>
+      {sides}
+      <polygon points={pts(base.map(([x, y]) => [x, y - h] as Pt))} style={face(top, 6)} />
+    </g>
+  );
+}
+
+/* ---------------- Icon laid on a top face ---------------- */
+// Lucide icons are drawn upright and squashed a little so they sit on the surface.
+export function TopIcon({
+  x,
+  y,
+  size = 22,
+  color,
+  icon: Icon,
+  strokeWidth = 1.7,
+}: {
+  x: number;
+  y: number;
+  size?: number;
+  color: string;
+  icon: LucideIcon;
+  strokeWidth?: number;
+}) {
+  return (
+    <g transform={`translate(${x} ${y}) scale(1 0.78) translate(${-size / 2} ${-size / 2})`} style={{ color }}>
+      <Icon size={size} strokeWidth={strokeWidth} aria-hidden />
+    </g>
+  );
+}
+
+/* ---------------- Glow (pre-blurred radial gradient) ---------------- */
+export function Glow({ cx, cy, r, white = false }: { cx: number; cy: number; r: number; white?: boolean }) {
+  return <circle cx={cx} cy={cy} r={r} fill={white ? "url(#glow-white)" : "url(#glow-orange)"} />;
+}
+
+
+--- END OF FILE: src/components/tour/iso.tsx ---
+
+
+--- FILE: src/components/tour/Packets.tsx ---
+import type { CSSProperties } from "react";
+import { CABLES } from "./geometry";
+
+// Small glowing dots that travel along the cables in a loop.
+// They are plain HTML dots moved with CSS `offset-path` (no JavaScript, no filters).
+// The wrapper uses diagram units (740 × 600) and is scaled to the camera size with --unit.
+export default function Packets() {
+  return (
+    <div
+      aria-hidden
+      className="pointer-events-none absolute top-0 left-0 h-[600px] w-[740px] origin-top-left"
+      style={{ transform: "scale(var(--unit, 1))" }}
+    >
+      {CABLES.map((c, i) => {
+        const forward = `path("M ${c.from[0]} ${c.from[1]} L ${c.to[0]} ${c.to[1]}")`;
+        const backward = `path("M ${c.to[0]} ${c.to[1]} L ${c.from[0]} ${c.from[1]}")`;
+        return [0, 1].map((n) => {
+          const style = {
+            offsetPath: n === 0 ? forward : backward,
+            "--dur": `${2.4 + (i % 3) * 0.5}s`,
+            "--delay": `${-(i * 0.7 + n * 1.3)}s`,
+          } as CSSProperties;
+          return (
+            <span key={`${i}-${n}`} className={`packet ${n === 0 ? "packet-white" : "packet-orange"}`} style={style} />
+          );
+        });
+      })}
+    </div>
+  );
+}
+
+
+--- END OF FILE: src/components/tour/Packets.tsx ---
+
+
+--- FILE: src/components/tour/ProgressRail.tsx ---
+"use client";
+
+import { CHAPTERS, goToChapter } from "@/lib/tour";
+
+// Six small dots on the right edge, one per chapter. The tour marks the active one
+// with the "is-active" class (no React state), which turns it into a short orange pill.
+export default function ProgressRail() {
+  return (
+    <nav
+      aria-label="Tour chapters"
+      className="progress-rail fixed top-1/2 right-[22px] z-30 -translate-y-1/2 flex-col gap-1"
+    >
+      {CHAPTERS.map((c, i) => (
+        <button
+          key={c.id}
+          type="button"
+          data-rail={c.id}
+          onClick={() => goToChapter(c.id)}
+          aria-label={`Go to ${c.name}`}
+          className={`rail-dot group relative flex size-[22px] items-center justify-center ${i === 0 ? "is-active" : ""}`}
+        >
+          <span className="rail-mark block size-[7px] rounded-full bg-line transition-[opacity,background-color] duration-300 group-hover:bg-muted" />
+          <span className="rail-pill absolute h-[22px] w-[7px] rounded-full bg-accent" />
+        </button>
+      ))}
+    </nav>
+  );
+}
+
+
+--- END OF FILE: src/components/tour/ProgressRail.tsx ---
+
+
+--- FILE: src/components/tour/Tour.tsx ---
+"use client";
+
+import { useRef } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useGSAP } from "@gsap/react";
+import { CHAPTERS, setChapterJumper, type ChapterId } from "@/lib/tour";
+import CameraRig from "./CameraRig";
+import { AboutChapter, ContactChapter, ExperienceChapter, HeroChapter, ToolsChapter, WorkChapter } from "./Chapters";
+import { DiagramDefs } from "./DiagramArt";
+import { MODULES, OVERVIEW_CENTER } from "./geometry";
+
+gsap.registerPlugin(ScrollTrigger, useGSAP);
+
+// The tour only runs on big screens when motion is allowed.
+// Everywhere else the chapters are plain stacked sections (see globals.css).
+const TOUR_MEDIA = "(min-width: 900px) and (prefers-reduced-motion: no-preference)";
+
+// The diagram is drawn this many times bigger than "scale 1", so zooming in stays sharp.
+const R = 3.4;
+
+// Timing (in timeline seconds): a chapter is shown still ("hold"), then the camera moves.
+const HOLD = 0.6;
+const MOVE = 0.4;
+
+type Point = [number, number];
+type Shot = {
+  target: Point; // point of the diagram to look at (diagram units)
+  scale: number; // zoom
+  at: Point; // where on screen the target lands (fraction of width, height)
+  labels: number; // opacity of the module labels
+  veil: { right: number; top: number; bottom: number }; // readability gradients
+};
+
+const center = (id: string) => MODULES.find((m) => m.id === id)!.center;
+const noVeil = { right: 0, top: 0, bottom: 0 };
+
+// One camera position per chapter (Part 6.2 of the brief)
+const SHOTS: Record<ChapterId, Shot> = {
+  hero: { target: OVERVIEW_CENTER, scale: 1, at: [0.72, 0.5], labels: 1, veil: noVeil },
+  about: { target: center("about"), scale: 3.4, at: [0.3, 0.58], labels: 0, veil: { right: 1, top: 0, bottom: 0 } },
+  work: { target: center("work"), scale: 2.2, at: [0.25, 0.67], labels: 0, veil: { right: 1, top: 0.85, bottom: 0 } },
+  experience: {
+    target: center("experience"),
+    scale: 3.0,
+    at: [0.3, 0.58],
+    labels: 0,
+    veil: { right: 1, top: 0, bottom: 0 },
+  },
+  tools: { target: center("skills"), scale: 3.1, at: [0.5, 0.4], labels: 0, veil: { right: 0, top: 0.9, bottom: 1 } },
+  contact: { target: OVERVIEW_CENTER, scale: 0.8, at: [0.76, 0.52], labels: 1, veil: noVeil },
+};
+
+function buildTour(tour: HTMLElement) {
+  const stage = tour.querySelector<HTMLElement>(".stage")!;
+  const rig = tour.querySelector<HTMLElement>(".camera-rig")!;
+  const camera = tour.querySelector<HTMLElement>(".camera")!;
+  const labelCam = tour.querySelector<HTMLElement>(".label-camera")!;
+  const veils = {
+    right: tour.querySelector(".veil-right"),
+    top: tour.querySelector(".veil-top"),
+    bottom: tour.querySelector(".veil-bottom"),
+  };
+  const chapterEl = (id: ChapterId) => tour.querySelector<HTMLElement>(`[data-chapter="${id}"]`)!;
+  const items = (id: ChapterId) => gsap.utils.toArray<HTMLElement>(chapterEl(id).querySelectorAll("[data-anim]"));
+  const cards = gsap.utils.toArray<HTMLElement>(tour.querySelectorAll("[data-card]"));
+  const dots = gsap.utils.toArray<HTMLElement>(tour.querySelectorAll("[data-indicator]"));
+  const rail = gsap.utils.toArray<HTMLElement>(document.querySelectorAll("[data-rail]"));
+
+  // Sizes are read from the stage; they are re-read whenever ScrollTrigger refreshes (resize)
+  const vw = () => stage.clientWidth;
+  const vh = () => stage.clientHeight;
+  const unit = () => Math.min(vw() / 1440, vh() / 900); // screen px per diagram unit at zoom 1
+  const setSize = () => tour.style.setProperty("--k", String(unit()));
+  setSize();
+  ScrollTrigger.addEventListener("refreshInit", setSize);
+
+  // Camera transform that puts shot.target at shot.at on screen
+  const camX = (s: Shot) => () => s.at[0] * vw() - s.scale * unit() * s.target[0];
+  const camY = (s: Shot) => () => s.at[1] * vh() - s.scale * unit() * s.target[1];
+  const cameraVars = (s: Shot) => ({ x: camX(s), y: camY(s), scale: s.scale / R });
+  const labelVars = (s: Shot) => ({ x: camX(s), y: camY(s), scale: s.scale, opacity: s.labels });
+
+  const tl = gsap.timeline({
+    defaults: { ease: "none" },
+    scrollTrigger: {
+      trigger: tour,
+      pin: true,
+      scrub: 0.6,
+      start: "top top",
+      end: "+=800%",
+      invalidateOnRefresh: true,
+    },
+  });
+
+  // Starting state: the overview with the hero text
+  tl.set(camera, cameraVars(SHOTS.hero), 0);
+  tl.set(labelCam, labelVars(SHOTS.hero), 0);
+  tl.set([veils.right, veils.top, veils.bottom], { opacity: 0 }, 0);
+  tl.set(cards, { opacity: 0 }, 0);
+
+  let t = 0;
+  const holdMiddle: Partial<Record<ChapterId, number>> = {};
+  const moves: [number, number][] = [];
+  const switchAt: [ChapterId, number][] = [["hero", 0]];
+
+  // A move of the camera from one shot to another, starting at time `t`
+  function moveCamera(shot: Shot) {
+    const ease = "power2.inOut";
+    tl.to(camera, { ...cameraVars(shot), duration: MOVE, ease }, t);
+    tl.to(labelCam, { ...labelVars(shot), duration: MOVE, ease }, t);
+    tl.to(veils.right, { opacity: shot.veil.right, duration: MOVE }, t);
+    tl.to(veils.top, { opacity: shot.veil.top, duration: MOVE }, t);
+    tl.to(veils.bottom, { opacity: shot.veil.bottom, duration: MOVE }, t);
+    moves.push([t, t + MOVE]);
+  }
+
+  // Old content fades out and up; new content fades in from below (titles, text, then cards)
+  function swapContent(outEls: HTMLElement[], inEls: HTMLElement[]) {
+    tl.to(outEls, { opacity: 0, y: -24, duration: MOVE * 0.45, stagger: 0.03, ease: "power1.in" }, t);
+    tl.fromTo(
+      inEls,
+      { opacity: 0, y: 24 },
+      { opacity: 1, y: 0, duration: MOVE * 0.5, stagger: 0.06, ease: "power2.out", immediateRender: false },
+      t + MOVE * 0.45,
+    );
+  }
+
+  function hold(id: ChapterId) {
+    holdMiddle[id] = t + HOLD / 2;
+    tl.addLabel(id, t + HOLD / 2);
+    t += HOLD;
+  }
+
+  // Which elements fade in/out for each chapter (Work also has its first/last card)
+  const inItems = (id: ChapterId) =>
+    id === "work" ? [...items(id).slice(0, 2), cards[0], ...items(id).slice(2)] : items(id);
+  const outItems = (id: ChapterId) => (id === "work" ? [...items(id), cards[cards.length - 1]] : items(id));
+
+  hold("hero");
+  const order = CHAPTERS.map((c) => c.id);
+  for (let i = 1; i < order.length; i++) {
+    const from = order[i - 1];
+    const to = order[i];
+    moveCamera(SHOTS[to]);
+    swapContent(outItems(from), inItems(to));
+    switchAt.push([to, t + MOVE / 2]);
+    t += MOVE;
+    hold(to);
+
+    // Inside Work: step through the projects. Each next card slides in from the right,
+    // the camera zooms in a little more (2.2 → 2.35 → 2.5).
+    if (to === "work") {
+      for (let p = 1; p < cards.length; p++) {
+        moveCamera({ ...SHOTS.work, scale: SHOTS.work.scale + 0.15 * p });
+        tl.to(cards[p - 1], { x: -140, opacity: 0, duration: MOVE * 0.7, ease: "power2.in" }, t);
+        tl.fromTo(
+          cards[p],
+          { x: 140, opacity: 0 },
+          { x: 0, opacity: 1, duration: MOVE * 0.7, ease: "power2.out", immediateRender: false },
+          t + MOVE * 0.3,
+        );
+        tl.to(dots[p - 1], { opacity: 0, duration: MOVE * 0.5 }, t + MOVE * 0.25);
+        tl.to(dots[p], { opacity: 1, duration: MOVE * 0.5 }, t + MOVE * 0.25);
+        t += MOVE;
+        t += HOLD;
+      }
+    }
+  }
+
+  // ---- Gentle parallax in the overview (max 8px), transform only ----
+  const parallaxX = gsap.quickTo(rig, "x", { duration: 0.6, ease: "power3.out" });
+  const parallaxY = gsap.quickTo(rig, "y", { duration: 0.6, ease: "power3.out" });
+  function onMouseMove(e: MouseEvent) {
+    if (!overview) return;
+    parallaxX((e.clientX / window.innerWidth - 0.5) * 16);
+    parallaxY((e.clientY / window.innerHeight - 0.5) * 16);
+  }
+  stage.addEventListener("mousemove", onMouseMove);
+
+  // ---- Small DOM updates from the timeline (only when something changes) ----
+  let lastActive: ChapterId | null = null;
+  let lastMoving: boolean | null = null;
+  let overview = true;
+
+  function onUpdate() {
+    const time = tl.time();
+    const moving = moves.some(([a, b]) => time > a + 0.002 && time < b - 0.002);
+    if (moving !== lastMoving) {
+      stage.classList.toggle("is-moving", moving); // pauses the packets
+      lastMoving = moving;
+    }
+    let active: ChapterId = "hero";
+    for (const [id, at] of switchAt) if (time >= at) active = id;
+    if (active !== lastActive) {
+      tour.querySelectorAll<HTMLElement>("[data-chapter]").forEach((el) => {
+        el.classList.toggle("is-active", el.dataset.chapter === active);
+      });
+      rail.forEach((el) => el.classList.toggle("is-active", el.dataset.rail === active));
+      lastActive = active;
+    }
+    const isOverview = !moving && (active === "hero" || active === "contact");
+    if (isOverview !== overview) {
+      overview = isOverview;
+      stage.toggleAttribute("data-overview", isOverview);
+      if (!isOverview) {
+        parallaxX(0);
+        parallaxY(0);
+      }
+    }
+  }
+  tl.eventCallback("onUpdate", onUpdate);
+  stage.setAttribute("data-overview", "");
+  onUpdate();
+
+  // ---- Jumping to chapters (rail, buttons, module clicks) ----
+  const st = tl.scrollTrigger!;
+  const scrollFor = (id: ChapterId) => st.start + ((st.end - st.start) * (holdMiddle[id] ?? 0)) / tl.duration();
+  const jumpTo = (id: ChapterId, smooth = true) =>
+    window.scrollTo({ top: scrollFor(id), behavior: smooth ? "smooth" : "auto" });
+  setChapterJumper((id) => jumpTo(id));
+
+  // Keyboard users: focusing something inside a hidden chapter brings that chapter on screen
+  function onFocusIn(e: FocusEvent) {
+    const chapter = (e.target as HTMLElement).closest<HTMLElement>("[data-chapter]");
+    const id = chapter?.dataset.chapter as ChapterId | undefined;
+    if (id && id !== lastActive) jumpTo(id, false);
+  }
+  tour.addEventListener("focusin", onFocusIn);
+
+  // ---- Pause the packets while the tab is hidden ----
+  const onVisibility = () => stage.classList.toggle("is-hidden", document.hidden);
+  document.addEventListener("visibilitychange", onVisibility);
+
+  // Open the page at a chapter when the URL has a #hash (e.g. /#contact)
+  const hash = window.location.hash.slice(1) as ChapterId;
+  if (CHAPTERS.some((c) => c.id === hash)) {
+    requestAnimationFrame(() => jumpTo(hash, false));
+  }
+
+  // Clean-up when leaving the tour (unmount or the screen gets small)
+  return () => {
+    ScrollTrigger.removeEventListener("refreshInit", setSize);
+    tour.removeEventListener("focusin", onFocusIn);
+    stage.removeEventListener("mousemove", onMouseMove);
+    document.removeEventListener("visibilitychange", onVisibility);
+    setChapterJumper(null);
+    stage.classList.remove("is-moving", "is-hidden");
+    stage.removeAttribute("data-overview");
+    tour.querySelectorAll("[data-chapter]").forEach((el) => el.classList.remove("is-active"));
+  };
+}
+
+export default function Tour() {
+  const ref = useRef<HTMLElement>(null);
+
+  useGSAP(
+    () => {
+      ScrollTrigger.config({ ignoreMobileResize: true });
+      const mm = gsap.matchMedia();
+      mm.add(TOUR_MEDIA, () => buildTour(ref.current!));
+      return () => mm.revert();
+    },
+    { scope: ref },
+  );
+
+  return (
+    <section id="tour" ref={ref} aria-label="A guided tour of my work">
+      <DiagramDefs />
+      <div className="stage">
+        <CameraRig />
+        <div aria-hidden className="veil veil-right" />
+        <div aria-hidden className="veil veil-top" />
+        <div aria-hidden className="veil veil-bottom" />
+        <HeroChapter />
+        <AboutChapter />
+        <WorkChapter />
+        <ExperienceChapter />
+        <ToolsChapter />
+        <ContactChapter />
+      </div>
+    </section>
+  );
+}
+
+
+--- END OF FILE: src/components/tour/Tour.tsx ---
+
+
+--- FILE: src/components/ui/BrowserFrame.tsx ---
+import Image from "next/image";
+
+// A simple browser window: a bar with 3 dots and the URL, the screenshot below.
+export default function BrowserFrame({
+  src,
+  url,
+  alt,
+  eager = false,
+  crop = false,
+  sizes = "(min-width: 1024px) 700px, 100vw",
+}: {
+  src: string;
+  url: string;
+  alt: string;
+  eager?: boolean;
+  crop?: boolean; // show only the top part (2:1) of the screenshot
+  sizes?: string;
+}) {
+  return (
+    <div className="overflow-hidden rounded-[14px] border border-frame-line bg-frame">
+      <div className="flex h-[30px] items-center gap-2 border-b border-frame-line px-3.5">
+        <span className="size-2 rounded-full bg-frame-dot" />
+        <span className="size-2 rounded-full bg-frame-dot" />
+        <span className="size-2 rounded-full bg-frame-dot" />
+        <span className="ml-3 truncate font-mono text-[11px] text-frame-text">{url}</span>
+      </div>
+      <div className={crop ? "aspect-[2/1] overflow-hidden" : ""}>
+        <Image
+          src={src}
+          alt={alt}
+          width={1600}
+          height={1000}
+          sizes={sizes}
+          preload={eager}
+          loading={eager ? "eager" : "lazy"}
+          className="block h-auto w-full"
+        />
+      </div>
+    </div>
+  );
+}
+
+
+--- END OF FILE: src/components/ui/BrowserFrame.tsx ---
+
+
+--- FILE: src/components/ui/Button.tsx ---
+import Link from "next/link";
+import { ArrowDown, ArrowRight, ArrowUpRight } from "lucide-react";
+import type { MouseEvent, ReactNode } from "react";
+
+export type Arrow = "right" | "down" | "external" | "none";
+
+type ButtonProps = {
+  variant?: "primary" | "secondary";
+  size?: "md" | "sm";
+  arrow?: Arrow;
+  href?: string;
+  onClick?: (e: MouseEvent<HTMLElement>) => void;
+  children: ReactNode;
+  className?: string;
+  ariaLabel?: string;
+};
+
+// The small arrow after the button text. It moves 3px on hover (see globals.css).
+function ArrowIcon({ arrow }: { arrow: Arrow }) {
+  if (arrow === "right") return <ArrowRight aria-hidden size={16} className="arrow-right" />;
+  if (arrow === "down") return <ArrowDown aria-hidden size={16} className="arrow-down" />;
+  if (arrow === "external") return <ArrowUpRight aria-hidden size={16} className="arrow-up-right" />;
+  return null;
+}
+
+// One pill button. Renders a link when `href` is given, otherwise a <button>.
+export default function Button({
+  variant = "primary",
+  size = "md",
+  arrow = "none",
+  href,
+  onClick,
+  children,
+  className = "",
+  ariaLabel,
+}: ButtonProps) {
+  const classes = `btn btn-${variant} ${size === "sm" ? "btn-sm" : ""} ${className}`;
+  const content = (
+    <>
+      {children}
+      <ArrowIcon arrow={arrow} />
+    </>
+  );
+
+  if (href) {
+    const isExternal = href.startsWith("http");
+    const isPlain = isExternal || href.startsWith("mailto:") || href.startsWith("#") || href.endsWith(".pdf");
+    if (isPlain) {
+      return (
+        <a
+          href={href}
+          onClick={onClick}
+          className={classes}
+          aria-label={ariaLabel}
+          {...(isExternal ? { target: "_blank", rel: "noreferrer" } : {})}
+        >
+          {content}
+        </a>
+      );
+    }
+    return (
+      <Link href={href} onClick={onClick} className={classes} aria-label={ariaLabel}>
+        {content}
+      </Link>
+    );
+  }
+
+  return (
+    <button type="button" onClick={onClick} className={classes} aria-label={ariaLabel}>
+      {content}
+    </button>
+  );
+}
+
+
+--- END OF FILE: src/components/ui/Button.tsx ---
+
+
+--- FILE: src/components/ui/Dot.tsx ---
+// The small round orange dot used instead of a period at the end of big titles.
+export default function Dot() {
+  return <span aria-hidden="true" className="dot" />;
+}
+
+
+--- END OF FILE: src/components/ui/Dot.tsx ---
+
+
+--- FILE: src/components/ui/PhoneFrame.tsx ---
+import Image from "next/image";
+
+// A phone with rounded corners and a notch, holding the mobile screenshot.
+export default function PhoneFrame({ src, alt, eager = false }: { src: string; alt: string; eager?: boolean }) {
+  return (
+    <div className="rounded-[26px] border border-frame-line bg-phone p-[5px] shadow-[0_20px_50px_-18px_rgb(0_0_0_/_0.8)]">
+      <div className="relative overflow-hidden rounded-[21px] bg-frame">
+        <span
+          aria-hidden
+          className="absolute top-[2.6%] left-1/2 z-10 h-[3.6%] w-[44%] -translate-x-1/2 rounded-full bg-notch"
+        />
+        <Image
+          src={src}
+          alt={alt}
+          width={780}
+          height={1690}
+          sizes="200px"
+          loading={eager ? "eager" : "lazy"}
+          className="block h-auto w-full"
+        />
+      </div>
+    </div>
+  );
+}
+
+
+--- END OF FILE: src/components/ui/PhoneFrame.tsx ---
+
+
+--- FILE: src/components/ui/ProjectCard.tsx ---
+import Link from "next/link";
+import { ArrowRight } from "lucide-react";
+import type { Project } from "@/content/site";
+import ProjectShowcase from "./ProjectShowcase";
+
+// One project: header row, screenshots, and the two big stats at the bottom.
+export default function ProjectCard({
+  project,
+  index,
+  eager = false,
+  headingLevel = 3,
+  cropShots = false,
+}: {
+  project: Project;
+  index: number;
+  eager?: boolean;
+  headingLevel?: 2 | 3;
+  cropShots?: boolean; // show only the top of the desktop screenshot (keeps the tour card short)
+}) {
+  const Heading = headingLevel === 2 ? "h2" : "h3";
+  return (
+    <article
+      aria-labelledby={`project-${project.slug}`}
+      className="rounded-[22px] border border-line bg-surface p-5 shadow-[0_40px_80px_-30px_rgb(0_0_0_/_0.6)] sm:p-6"
+    >
+      <div className="flex flex-wrap items-baseline gap-x-4 gap-y-1">
+        <span className="font-mono text-[13px] text-accent">{String(index + 1).padStart(2, "0")}</span>
+        <Heading id={`project-${project.slug}`} className="text-[26px] leading-tight font-semibold tracking-[-0.02em]">
+          {project.name}
+        </Heading>
+        <span className="text-[15px] text-muted">{project.kind}</span>
+        <Link
+          href={`/work/${project.slug}`}
+          className="group ml-auto inline-flex items-center gap-1 text-[16px] font-semibold text-accent"
+        >
+          Case study
+          <ArrowRight
+            aria-hidden
+            size={16}
+            className="transition-transform duration-150 group-hover:translate-x-[3px]"
+          />
+          <span className="sr-only">: {project.name}</span>
+        </Link>
+      </div>
+
+      <div className="mt-5">
+        <ProjectShowcase project={project} eager={eager} crop={cropShots} />
+      </div>
+
+      <dl className="mt-3 flex flex-wrap gap-x-8 gap-y-2">
+        {project.stats.map(([value, label]) => (
+          <div key={label} className="flex items-baseline gap-2">
+            <dt className="sr-only">{label}</dt>
+            <dd className="font-display text-[22px] font-bold tracking-[-0.02em]">{value}</dd>
+            <dd aria-hidden className="font-mono text-[12px] text-muted">
+              {label}
+            </dd>
+          </div>
+        ))}
+      </dl>
+    </article>
+  );
+}
+
+
+--- END OF FILE: src/components/ui/ProjectCard.tsx ---
+
+
+--- FILE: src/components/ui/ProjectShowcase.tsx ---
+import type { Project } from "@/content/site";
+import BrowserFrame from "./BrowserFrame";
+import PhoneFrame from "./PhoneFrame";
+
+// Desktop screenshot in a browser frame with the phone overlapping its bottom-right corner.
+export default function ProjectShowcase({
+  project,
+  eager = false,
+  crop = false,
+}: {
+  project: Project;
+  eager?: boolean;
+  crop?: boolean;
+}) {
+  return (
+    <div className="relative pr-[9%] pb-5">
+      <BrowserFrame
+        src={project.desktop}
+        url={project.url}
+        alt={`${project.name} on desktop`}
+        eager={eager}
+        crop={crop}
+      />
+      <div className="absolute right-0 bottom-0 w-[23%] min-w-[84px]">
+        <PhoneFrame src={project.mobile} alt={`${project.name} on mobile`} eager={eager} />
+      </div>
+    </div>
+  );
+}
+
+
+--- END OF FILE: src/components/ui/ProjectShowcase.tsx ---
+
+
+--- FILE: src/components/ui/ThemeToggle.tsx ---
+"use client";
+
+import { Moon, Sun } from "lucide-react";
+import { useTheme } from "next-themes";
+import { useSyncExternalStore } from "react";
+
+// true in the browser, false while rendering on the server (avoids hydration mismatches)
+const useIsClient = () =>
+  useSyncExternalStore(
+    () => () => {},
+    () => true,
+    () => false,
+  );
+
+// Small round button that switches between dark and light mode.
+export default function ThemeToggle() {
+  const { resolvedTheme, setTheme } = useTheme();
+  const isClient = useIsClient();
+  const isDark = !isClient || resolvedTheme !== "light";
+
+  return (
+    <button
+      type="button"
+      onClick={() => setTheme(isDark ? "light" : "dark")}
+      aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
+      className="inline-flex size-11 items-center justify-center rounded-full border border-line bg-bg/60 text-muted transition-colors duration-150 hover:text-text"
+    >
+      {isDark ? <Sun size={17} aria-hidden /> : <Moon size={17} aria-hidden />}
+    </button>
+  );
+}
+
+
+--- END OF FILE: src/components/ui/ThemeToggle.tsx ---
+
+
+--- FILE: src/content/site.ts ---
+// All text and data for the portfolio live in this one file.
+// Change your content here — the components read everything from `site`.
+
+export type Project = {
+  slug: string;
+  name: string;
+  kind: string;
+  url: string;
+  live: string;
+  github?: string;
+  role: string;
+  timeline: string;
+  stats: [string, string][]; // [big number, small label]
+  story: string;
+  stack: string[];
+  desktop: string;
+  mobile: string;
+  caseStudy: { problem: string; approach: string; outcome: string };
+};
+
+export const site = {
+  name: "Ahmad",
+  wordmark: "AHMAD",
+  role: "Software Engineer",
+  location: "Karachi, Pakistan",
+  email: "hello@ahmad.dev", // TODO: replace with real
+  github: "https://github.com/ahmad-dev", // TODO: replace with real
+  linkedin: "https://linkedin.com/in/ahmad-dev", // TODO: replace with real
+  cv: "/cv.pdf",
+
+  hero: {
+    eyebrow: "SOFTWARE ENGINEER · 3 YEARS SHIPPING",
+    lines: ["I BUILD", "SYSTEMS", "THAT"],
+    accent: "STAY UP",
+    text: "Full-stack engineer building payment, logistics and developer tools. Scroll — the system will walk you through my work.",
+  },
+
+  about: {
+    title: "Hi, I'm Ahmad",
+    text: "Software engineer in Karachi. For three years I've built the parts of products people only notice when they break — payments, pipelines and live dashboards.",
+    facts: [
+      ["Now", "Engineer @ Paylane"], // TODO: replace with real
+      ["Before", "Northwind Logistics"], // TODO: replace with real
+      ["Focus", "Backend & full-stack"],
+      ["Based", "Karachi · remote ok"],
+    ] as [string, string][],
+  },
+
+  projects: [
+    {
+      // TODO: replace with real project, company and numbers
+      slug: "ledgerline",
+      name: "Ledgerline",
+      kind: "Payments · Paylane · 2025",
+      url: "ledgerline.paylane.app",
+      live: "#",
+      role: "Backend engineer",
+      timeline: "2025 · 5 months",
+      stats: [
+        ["6h → 18m", "daily close"],
+        ["2.1M", "txns / day"],
+      ],
+      story: "Finance matched bank settlements by hand every morning. I built the service that does it automatically.",
+      stack: ["Go", "Kafka", "PostgreSQL", "AWS"],
+      desktop: "/projects/ledgerline-desktop.png",
+      mobile: "/projects/ledgerline-mobile.png",
+      caseStudy: {
+        problem:
+          "Every morning, two people on the finance team downloaded settlement files from five banks and matched them against our payouts in a spreadsheet. It took around six hours, and mistakes were often found days later.",
+        approach:
+          "I built a Go service that pulls settlement files as soon as banks publish them, streams each line through Kafka and matches it against our ledger in PostgreSQL. Anything that doesn't match cleanly goes to a small review queue with the reason attached.",
+        outcome:
+          "The daily close now takes about 18 minutes, and finance only looks at the few transactions that really need a person. The service handles around 2.1 million transactions a day.",
+      },
+    },
+    {
+      // TODO: replace with real project, company and numbers
+      slug: "routewise",
+      name: "Routewise",
+      kind: "Logistics · Northwind · 2024",
+      url: "dispatch.northwind.io",
+      live: "#",
+      role: "Full-stack engineer",
+      timeline: "2023 — 2024 · 9 months",
+      stats: [
+        ["1,200", "drivers live"],
+        ["9 → 3 min", "per dispatch"],
+      ],
+      story: "A live dispatch board and driver app that replaced spreadsheets and phone calls.",
+      stack: ["Next.js", "WebSockets", "PostGIS"],
+      desktop: "/projects/routewise-desktop.png",
+      mobile: "/projects/routewise-mobile.png",
+      caseStudy: {
+        problem:
+          "Dispatchers assigned orders through phone calls and a shared spreadsheet. Nobody knew exactly where drivers were, so each order took around nine minutes to place.",
+        approach:
+          "I built a live dispatch board in Next.js with driver locations streamed over WebSockets, plus a simple driver app. PostGIS finds the nearest free drivers, so a dispatcher can assign an order in two clicks.",
+        outcome:
+          "Dispatch time dropped from nine minutes to three per order. The board is used every day for 1,200 drivers across three cities.",
+      },
+    },
+    {
+      // TODO: replace with real project and numbers
+      slug: "pulsecheck",
+      name: "Pulsecheck",
+      kind: "Open source · 2024 — now",
+      url: "github.com/ahmad-dev/pulsecheck",
+      live: "#",
+      github: "https://github.com/ahmad-dev/pulsecheck",
+      role: "Creator & maintainer",
+      timeline: "2024 — now",
+      stats: [
+        ["1.4k", "GitHub stars"],
+        ["22", "contributors"],
+      ],
+      story: "A small self-hosted uptime monitor and status page I maintain in my free time.",
+      stack: ["TypeScript", "Hono", "SQLite"],
+      desktop: "/projects/pulsecheck-desktop.png",
+      mobile: "/projects/pulsecheck-mobile.png",
+      caseStudy: {
+        problem:
+          "Most uptime tools were either paid SaaS products or heavy to host yourself. I wanted something small enough to run on a five-dollar server.",
+        approach:
+          "Pulsecheck is a single TypeScript app built with Hono and SQLite. It checks your URLs on a schedule, keeps a short history and serves a clean public status page. Setup is one command.",
+        outcome:
+          "It has 1.4k stars on GitHub and 22 contributors so far. People use it for side projects, small agencies and internal tools.",
+      },
+    },
+  ] as Project[],
+
+  experience: [
+    // TODO: replace with real
+    { years: "2025—NOW", role: "Software Engineer", place: "Paylane · Remote", current: true },
+    { years: "2023—24", role: "Associate Engineer", place: "Northwind Logistics" },
+    { years: "2023", role: "Intern", place: "Cloudlane Labs" },
+  ],
+
+  tools: [
+    "Python",
+    "TypeScript",
+    "JavaScript",
+    "Node.js",
+    "Go",
+    "React",
+    "Next.js",
+    "HTML",
+    "CSS",
+    "PostgreSQL",
+    "Redis",
+    "Docker",
+    "AWS",
+    "Git",
+  ],
+
+  contact: {
+    lines: ["LET'S BUILD", "SOMETHING"],
+    accent: "THAT STAYS UP",
+    text: "Open to full-time roles and freelance work. I reply within a day.",
+  },
+};
+
+
+--- END OF FILE: src/content/site.ts ---
+
+
+--- FILE: src/lib/techIcons.ts ---
+// Maps the names in site.tools to their official logos and brand colours.
+// Logos come from react-icons: Simple Icons (Si…) first, Devicon (Di…) as a fallback.
+import type { IconType } from "react-icons";
+import { DiAws } from "react-icons/di";
+import {
+  SiCss,
+  SiDocker,
+  SiGit,
+  SiGo,
+  SiHtml5,
+  SiJavascript,
+  SiNextdotjs,
+  SiNodedotjs,
+  SiPostgresql,
+  SiPython,
+  SiReact,
+  SiRedis,
+  SiTypescript,
+} from "react-icons/si";
+
+type TechIcon = { Icon: IconType; color: string };
+
+export const techIcons: Record<string, TechIcon> = {
+  Python: { Icon: SiPython, color: "#3776AB" },
+  TypeScript: { Icon: SiTypescript, color: "#3178C6" },
+  JavaScript: { Icon: SiJavascript, color: "#F7DF1E" },
+  "Node.js": { Icon: SiNodedotjs, color: "#5FA04E" },
+  Go: { Icon: SiGo, color: "#00ADD8" },
+  React: { Icon: SiReact, color: "#61DAFB" },
+  // Next.js's brand colour is black, so it uses the text colour to stay visible in dark mode
+  "Next.js": { Icon: SiNextdotjs, color: "var(--text)" },
+  HTML: { Icon: SiHtml5, color: "#E34F26" },
+  CSS: { Icon: SiCss, color: "#663399" },
+  PostgreSQL: { Icon: SiPostgresql, color: "#4169E1" },
+  Redis: { Icon: SiRedis, color: "#FF4438" },
+  Docker: { Icon: SiDocker, color: "#2496ED" },
+  // Simple Icons has no AWS logo, so this one comes from Devicon
+  AWS: { Icon: DiAws, color: "#FF9900" },
+  Git: { Icon: SiGit, color: "#F05032" },
+};
+
+
+--- END OF FILE: src/lib/techIcons.ts ---
+
+
+--- FILE: src/lib/tour.ts ---
+// Shared helpers for jumping between the chapters of the tour.
+
+export const CHAPTERS = [
+  { id: "hero", name: "Start" },
+  { id: "about", name: "About" },
+  { id: "work", name: "Work" },
+  { id: "experience", name: "Experience" },
+  { id: "tools", name: "Tools" },
+  { id: "contact", name: "Contact" },
+] as const;
+
+export type ChapterId = (typeof CHAPTERS)[number]["id"];
+
+// While the pinned tour is running, it registers a function that scrolls to a chapter's
+// place on the timeline. Without the tour (mobile / reduced motion) we scroll to the section.
+let jumper: ((id: ChapterId) => void) | null = null;
+
+export function setChapterJumper(fn: ((id: ChapterId) => void) | null) {
+  jumper = fn;
+}
+
+export function goToChapter(id: ChapterId) {
+  if (jumper) {
+    jumper(id);
+    return;
+  }
+  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  document.getElementById(id)?.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" });
+}
+
+
+--- END OF FILE: src/lib/tour.ts ---
+
+
+--- FILE: tsconfig.json ---
+{
+  "compilerOptions": {
+    "target": "ES2017",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "react-jsx",
+    "incremental": true,
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
+    "paths": {
+      "@/*": ["./src/*"]
+    }
+  },
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    ".next/dev/types/**/*.ts",
+    "**/*.mts"
+  ],
+  "exclude": ["node_modules"]
+}
+
+
+--- END OF FILE: tsconfig.json ---
+
