@@ -12,9 +12,9 @@ import { MODULES, OVERVIEW_CENTER } from "./geometry";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
-// The tour only runs on big screens when motion is allowed.
-// Everywhere else the chapters are plain stacked sections (see globals.css).
-const TOUR_MEDIA = "(min-width: 900px) and (prefers-reduced-motion: no-preference)";
+// The tour runs on big screens (>= 900px).
+// On small screens the chapters are plain stacked sections (see globals.css).
+const TOUR_MEDIA = "(min-width: 900px)";
 
 // The diagram is drawn this many times bigger than "scale 1", so zooming in stays sharp.
 const R = 3.4;

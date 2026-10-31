@@ -4,7 +4,7 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 /* "tour:" = big screens with motion allowed, where the pinned scroll tour runs */
-@custom-variant tour (@media (min-width: 900px) and (prefers-reduced-motion: no-preference));
+@custom-variant tour (@media (min-width: 900px));
 
 /* ------------------------------------------------------------------
    1. Colour tokens — "Ember" (dark is the default)
@@ -520,26 +520,10 @@
   transform: none;
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .reveal {
-    transform: none;
-    transition: opacity 200ms linear;
-  }
-  .packet,
-  .live-dot::after,
-  .marquee-track {
-    animation: none !important;
-  }
-  .packet {
-    display: none;
-  }
-  .marquee {
-    overflow-x: auto;
-  }
-}
+/* prefers-reduced-motion override removed so animations run smoothly */
 
 /* --- Pinned tour (desktop) --- */
-@media (min-width: 900px) and (prefers-reduced-motion: no-preference) {
+@media (min-width: 900px) {
   .stage {
     position: relative;
     height: 100vh;

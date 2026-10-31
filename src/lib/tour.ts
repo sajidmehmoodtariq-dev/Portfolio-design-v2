@@ -24,6 +24,5 @@ export function goToChapter(id: ChapterId) {
     jumper(id);
     return;
   }
-  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  document.getElementById(id)?.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" });
+  document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
 }
